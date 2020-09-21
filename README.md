@@ -7,3 +7,5 @@ First commit.
 idk what im doing -Ryan
 test #2
 test #3
+
+i think i kinda understand now
