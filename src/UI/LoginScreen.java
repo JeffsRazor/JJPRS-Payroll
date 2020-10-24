@@ -1,11 +1,11 @@
 package UI;
 
 import java.awt.event.ActionListener;
-
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
-
 import DatabaseCode.DatabaseCalls;
+import DatabaseCode.UserAccountDAO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,50 +23,51 @@ public class LoginScreen implements ActionListener {
     private static JLabel title;
     private static JFrame frame;
     private static JPanel p;
+    private UserAccountDAO dao;
+    private static Connection logindb;
     
-    public static void main(String[] args) {
+    public static void createLogin(Connection db){
         // Create frame and panel
-         frame = new JFrame();
-         p = new JPanel();
-        frame.setSize(600, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        logindb = db;
+        frame = new JFrame();
+        p = new JPanel();
+       frame.setSize(600, 500);
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(p);
-        p.setLayout(null);
+       frame.add(p);
+       p.setLayout(null);
 
-        title = new JLabel("Login to the JJPRS Payroll System");
-        title.setBounds(150, 0, 300, 25);
-        p.add(title);
+       title = new JLabel("Login to the JJPRS Payroll System");
+       title.setBounds(150, 0, 300, 25);
+       p.add(title);
 
-        userLabel = new JLabel("Username");
-        userLabel.setBounds(10, 50, 80, 25);
-        p.add(userLabel);
+       userLabel = new JLabel("Username");
+       userLabel.setBounds(10, 50, 80, 25);
+       p.add(userLabel);
 
-        usernameText = new JTextField("Input your username here", 20);
-        usernameText.setBounds(100, 50, 165, 25);
-        p.add(usernameText);
+       usernameText = new JTextField("Input your username here", 20);
+       usernameText.setBounds(100, 50, 165, 25);
+       p.add(usernameText);
 
-        passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 70, 80, 25);
-        p.add(passwordLabel);
+       passwordLabel = new JLabel("Password");
+       passwordLabel.setBounds(10, 70, 80, 25);
+       p.add(passwordLabel);
 
-        passwordField = new JPasswordField();
-        passwordField.setBounds(100, 70, 165, 25);
-        p.add(passwordField);
+       passwordField = new JPasswordField();
+       passwordField.setBounds(100, 70, 165, 25);
+       p.add(passwordField);
 
-        loginButton = new JButton("Login");
-        loginButton.setBounds(10, 100, 80, 25);
-        loginButton.addActionListener(new LoginScreen());
-        p.add(loginButton);
+       loginButton = new JButton("Login");
+       loginButton.setBounds(10, 100, 80, 25);
+       loginButton.addActionListener(new LoginScreen());
+       p.add(loginButton);
 
-        loginSucess = new JLabel();
-        loginSucess.setBounds(10, 130, 300, 25);
-        p.add(loginSucess);
+       loginSucess = new JLabel();
+       loginSucess.setBounds(10, 130, 300, 25);
+       p.add(loginSucess);
 
-        frame.setVisible(true);
-
+       frame.setVisible(true);
     }
-    public void createLogin(){}
     @Override
     public void actionPerformed(ActionEvent e) {
         String user = usernameText.getText();
@@ -75,7 +76,10 @@ public class LoginScreen implements ActionListener {
         System.out.println(user + " " + password);
         //make DB call here to check username/password (or maybe have login do ID instead of username)
        try {
-           String dbPassword = DatabaseCalls.callDB(id);
+           System.out.print(logindb);
+           dao = new UserAccountDAO(logindb);
+           String dbPassword = dao.getPassword(id);
+           
            System.out.println(dbPassword);
            if(dbPassword.equals(password)) {
             loginSucess.setText("Login Successful!");
