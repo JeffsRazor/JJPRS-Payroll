@@ -11,7 +11,7 @@ public class UserAccountDAO {
 	private Connection db;
 	
 	public UserAccountDAO(Connection db) {
-		this.db = db;
+        this.db = db;
 	}
 	
 	
@@ -31,7 +31,25 @@ public class UserAccountDAO {
          {
              e.printStackTrace();
          }
-	}
+    }
+    public String getPassword(int id) throws SQLException {
+        ResultSet rs = null;
+        String s = null; 
+        try {
+            Statement stmt = db.createStatement();
+            rs = stmt.executeQuery("SELECT Password FROM employee WHERE employeeID =" + id );
+            rs.next();
+            System.out.print(rs);
+            s = rs.getString("Password");
+            System.out.println(s);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return s;
+    }
 	
 	 //Employee
     public void addHours(int hours, int ID) throws SQLException {
