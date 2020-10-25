@@ -1,3 +1,5 @@
+package Employee;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -7,8 +9,8 @@ public class HR extends Employee {
 
     private UserAccountDAO dao;
 
-    public HR(Connection db) {
-        super(db);
+    public HR(Connection db, int id) {
+        super(db, id);
     }
     
     public void updateHI(String hi, int ID) throws SQLException { 

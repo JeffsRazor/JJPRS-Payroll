@@ -62,7 +62,7 @@ public class UserAccountDAO {
             Statement stmt =  db.createStatement();
             rs = stmt.executeQuery("SELECT Name FROM employee WHERE employeeID =" + id );
             rs.next();
-            s = rs.getString("Password");
+            s = rs.getString("Name");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public class UserAccountDAO {
         String s = null; 
         try {
             Statement stmt = db.createStatement();
-            rs = stmt.executeQuery("SELECT employeeID FROM employee WHERE employeeID =" + id );
+            rs = stmt.executeQuery("SELECT PhoneNum FROM employee WHERE employeeID =" + id );
             rs.next();
             s = rs.getString("PhoneNum");
         }

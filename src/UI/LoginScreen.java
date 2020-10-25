@@ -84,10 +84,10 @@ public class LoginScreen implements ActionListener {
            if(dbPassword.equals(password)) {
             loginSucess.setText("Login Successful!");
             if(dao.getAdmin(id)){
-                HRDashboard.createDashboard();
+                HRDashboard.createDashboard(logindb, id);
             }
             else{
-                EmployeeDashboard.createDashboard();
+                EmployeeDashboard.createDashboard(logindb, id);
             }
             
             frame.dispose();

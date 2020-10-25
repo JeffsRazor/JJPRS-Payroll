@@ -1,3 +1,5 @@
+package Employee;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,13 +26,20 @@ public class Employee {
 
     private UserAccountDAO dao;
     
-    public Employee(Connection db) {
+    public Employee(Connection db, int id) {
         this.dao = new UserAccountDAO(db);
+        this.name = dao.getName(id);
+        this.dob = dao.getDob(id);
+        this.hours= dao.getHours(id);
+        this.employeeID = dao.getEmployeeID(id);
+        this.position = dao.getPosition(id);
+        this.phoneNum = dao.getPhoneNum(id);
+        this.email = dao.getEmail(id);
     }
 
-    public void getName(int id)
+    public String getName()
     {
-        this.name = dao.getName(id);
+        return this.name;
     }
 
     public void getDob(int id)
