@@ -14,8 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginScreen implements ActionListener {
-    private static JLabel userLabel;
-    private static JTextField usernameText;
+    private static JLabel idLabel;
+    private static JTextField idText;
     private static JLabel passwordLabel;
     private static JPasswordField passwordField;
     private static JButton loginButton;
@@ -41,13 +41,13 @@ public class LoginScreen implements ActionListener {
        title.setBounds(150, 0, 300, 25);
        p.add(title);
 
-       userLabel = new JLabel("Username");
-       userLabel.setBounds(10, 50, 80, 25);
-       p.add(userLabel);
+       idLabel = new JLabel("Employee ID");
+       idLabel.setBounds(10, 50, 80, 25);
+       p.add(idLabel);
 
-       usernameText = new JTextField("Input your username here", 20);
-       usernameText.setBounds(100, 50, 165, 25);
-       p.add(usernameText);
+       idText = new JTextField("Input your Employee ID here", 20);
+       idText.setBounds(100, 50, 165, 25);
+       p.add(idText);
 
        passwordLabel = new JLabel("Password");
        passwordLabel.setBounds(10, 70, 80, 25);
@@ -70,10 +70,10 @@ public class LoginScreen implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String user = usernameText.getText();
+        String empID = idText.getText();
         String password = passwordField.getText();
-        int id = Integer.parseInt(user);
-        System.out.println(user + " " + password);
+        int id = Integer.parseInt(empID);
+        System.out.println(empID + " " + password);
         //make DB call here to check username/password (or maybe have login do ID instead of username)
        try {
            System.out.print(logindb);
@@ -83,10 +83,13 @@ public class LoginScreen implements ActionListener {
            System.out.println(dbPassword);
            if(dbPassword.equals(password)) {
             loginSucess.setText("Login Successful!");
-            // if(DatabaseCalls.CallDB(id) >> function for finding admin bool in table)
-                //call hr dashboard
-            //can instantiate the welcomescreen from here
-            EmployeeDashboard.createDashboard();
+            if(dao.getAdmin(id)){
+                HRDashboard.createDashboard();
+            }
+            else{
+                EmployeeDashboard.createDashboard();
+            }
+            
             frame.dispose();
             }
             

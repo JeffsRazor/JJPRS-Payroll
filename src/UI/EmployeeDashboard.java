@@ -1,38 +1,71 @@
 package UI;
 
+import java.awt.*;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+
 
 public class EmployeeDashboard {
-    
+    private static JFrame frame;
     private static JLabel payrollInfo;
     private static JLabel benefits;
+    private static JLabel title;
 
-    public static void createDashboard() {
+    private static JPanel panel1;
+    private static JPanel panel2;
+    private static JPanel panel3;
+    private static JPanel panel4;
+    
+    private static JButton button;
 
     
-    JFrame frame = new JFrame();
-    JPanel mainPanel = new JPanel();
-    JPanel subPanel1 = new JPanel();
-    frame.setSize(600, 500);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static void createDashboard() {
+        frame = new JFrame();
+        frame.setSize(600, 1000);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        title = new JLabel("Welcome to the Employee Dashboard!");
+        title.setBounds(0, 0, 300, 25);
+        panel1 = new JPanel();
+        panel2 = new JPanel();
+        panel3 = new JPanel();
+        panel4 = new JPanel();
+        
+        button = new JButton("send");
+        panel1.setLayout(new FlowLayout());
+        panel1.add(title);
+        panel1.add(new JButton("Payroll Info"));
+        panel1.setBackground(Color.green);
+        panel1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 
-    frame.add(mainPanel);
-    frame.add(subPanel1);
-    mainPanel.setLayout(null);
-    subPanel1.setLayout(null);
+        panel2.add(new JButton("Profile Info"));
+        panel2.setBackground(Color.green);
+        panel2.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 
-    payrollInfo = new JLabel("Payroll Infos");
-    payrollInfo.setBounds(50, 100, 100, 25);
-    mainPanel.add(payrollInfo);
+        panel3.add(new JButton("Time Management"));
+        panel3.setBackground(Color.green);
+        panel3.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 
-    benefits = new JLabel("List Benefits");
-    benefits.setBounds(100, 100, 100, 25);
-    subPanel1.add(benefits);
-    frame.setVisible(true);
+        panel4.add(new JButton("Benefits"));
+        panel4.setBackground(Color.green);
+        panel4.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+
+        panel1.add(panel2);
+        panel1.add(panel3);
+        panel1.add(panel4);
+        frame.add(panel1);
+        frame.setVisible(true);
+    }
+    public static void main(String args[]){
+        createDashboard();
     }
 }

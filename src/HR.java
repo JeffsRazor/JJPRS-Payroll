@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import DatabaseCode.UserAccountDAO;
+
 public class HR extends Employee {
 
     private UserAccountDAO dao;
