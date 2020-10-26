@@ -35,6 +35,12 @@ public class Employee {
         this.position = dao.getPosition(id);
         this.phoneNum = dao.getPhoneNum(id);
         this.email = dao.getEmail(id);
+        this.salary = dao.getSalary(id);
+        this.retirement = dao.getRetirement(id);
+        this.healthInsurance = dao.getHealthInsurance(id);
+        this.admin = dao.getAdmin(id);
+        this.location = dao.getLocation(id);
+        this.status = dao.getStatus(id);
     }
 
     public String getName()
