@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 
 import DatabaseCode.DatabaseCalls;
 import DatabaseCode.UserAccountDAO;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,11 +23,12 @@ public class LoginScreen implements ActionListener {
     private static JPasswordField passwordField;
     private static JButton loginButton;
     private static JLabel loginSucess;
-    private static JLabel title;
+    private static JLabel title, image;
     private static JFrame frame;
     private static JPanel p;
     private UserAccountDAO dao;
     private static Connection logindb;
+    private static Icon icon;
     
     public static void createLogin(Connection db){
         // Create frame and panel
@@ -65,7 +69,10 @@ public class LoginScreen implements ActionListener {
        loginSucess = new JLabel();
        loginSucess.setBounds(10, 130, 300, 25);
        p.add(loginSucess);
-
+       icon = new ImageIcon("src/JJRPSLOGO.png");
+       image = new JLabel(icon);
+       image.setBounds(10, 180, 300, 300);
+       p.add(image);
        frame.setVisible(true);
     }
     @Override

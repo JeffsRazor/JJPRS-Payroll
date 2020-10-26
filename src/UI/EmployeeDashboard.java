@@ -20,11 +20,12 @@ import javax.swing.plaf.basic.BasicButtonListener;
 
 import Employee.*;
 import DatabaseCode.*;
+import UI.*;
 
 public class EmployeeDashboard implements ActionListener{
     private static JFrame frame;
     
-    private static JLabel title;
+    private static JLabel title, image;
 
     private static JPanel panel1;
     
@@ -42,9 +43,9 @@ public class EmployeeDashboard implements ActionListener{
         frame.setLayout(new BorderLayout());
         title = new JLabel("Welcome, " + emp.getName());
         title.setBounds(0, 0, 300, 25);
-        
+        icon = new ImageIcon("src/JJRPSLOGO.png");
         panel1 = new JPanel();
-
+        image = new JLabel(icon);
         logoutButton = new JButton("Logout");
         logoutButton.addActionListener(new ActionListener()
         {
@@ -61,7 +62,7 @@ public class EmployeeDashboard implements ActionListener{
           public void actionPerformed(ActionEvent evt)
           {
 
-           //PayrollScreen.createDashboard(db);
+           PayrollScreen.createDashboard(db, id, emp);
            frame.dispose();
           }
         });
@@ -71,7 +72,7 @@ public class EmployeeDashboard implements ActionListener{
           public void actionPerformed(ActionEvent evt)
           {
 
-          // ProfileScreen.createProfile(db);
+            ProfileScreen.createProfile(db, emp,id);
            frame.dispose();
           }
         });
@@ -82,7 +83,7 @@ public class EmployeeDashboard implements ActionListener{
           public void actionPerformed(ActionEvent evt)
           {
 
-           //TimeScreen.createdashboard(db);
+           TimeScreen.createDashboard(db, id, emp);
            frame.dispose();
           }
         }); 
@@ -93,7 +94,7 @@ public class EmployeeDashboard implements ActionListener{
           public void actionPerformed(ActionEvent evt)
           {
 
-           //BenefitsScreen.createdashboard(db);
+           BenefitsScreen.createDashboard(db, id, emp);
            frame.dispose();
           }
         });
@@ -107,7 +108,7 @@ public class EmployeeDashboard implements ActionListener{
         panel1.add(logoutButton);
         panel1.setBackground(Color.white);
         panel1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        
+        panel1.add(image);
         frame.add(panel1);
         
         frame.setVisible(true);

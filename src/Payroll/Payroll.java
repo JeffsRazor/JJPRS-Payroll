@@ -1,12 +1,93 @@
+package Payroll;
+import java.sql.Connection;
+
+import javax.swing.text.Position;
+
+import DatabaseCode.UserAccountDAO;
 
 public class Payroll {
+	private String location, insurance, pos;
+	private Boolean isMarried;
+	private double localIncomeTax, federalIncomeTax, totalTax, netPay;
+	private int salary, income, hrsWorkedPerWeek;
+	private UserAccountDAO dao;
+	public Payroll(Connection db, int id) {
+		this.dao = new UserAccountDAO(db);
+		this.salary = dao.getSalary(id);
+		this.location = dao.getLocation(id);
+		this.insurance = dao.getHealthInsurance(id);
+		this.pos = dao.getPosition(id);
+		this.isMarried = dao.getStatus(id);
 	
-	public void calculateBenefits(String insurance) {
-		
+
+		this.hrsWorkedPerWeek = dao.getHours(id);
+
+		this.income= calculateGrossIncome(salary, pos, hrsWorkedPerWeek);
+
+		this.localIncomeTax = calculateLocalTax(location, income, isMarried, pos);
+		this.federalIncomeTax = calculateFederalTax(isMarried, income, pos);
+		this.totalTax = calculateTotalTax(localIncomeTax, federalIncomeTax);
+		this.netPay = calculateDeductions(totalTax, income);
 	}
 	
-	public double calculateLocalTax(String location,int income,Boolean isMarried) {
-		double localIncomeTax=0.0;
+	public String getLocation() {
+		return this.location;
+	}
+
+	public String getInsurance() {
+		return this.insurance;
+	}
+
+	public String getPos() {
+		return this.pos;
+	}
+
+	public Boolean getIsMarried() {
+		return this.isMarried;
+	}
+
+	public Boolean isIsMarried() {
+		return this.isMarried;
+	}
+
+	public double getLocalIncomeTax() {
+		return this.localIncomeTax;
+	}
+
+	public double getFederalIncomeTax() {
+		return this.federalIncomeTax;
+	}
+
+	public double getTotalTax() {
+		return this.totalTax;
+	}
+
+	public double getNetPay() {
+		return this.netPay;
+	}
+
+	public int getSalary() {
+		return this.salary;
+	}
+
+	public int getIncome() {
+		return this.income;
+	}
+
+	public int getHrsWorkedPerWeek() {
+		return this.hrsWorkedPerWeek;
+	}
+
+	public UserAccountDAO getDao() {
+		return this.dao;
+	}
+
+
+	public void calculateBenefits(String insurance) {
+		 
+	}
+	
+	public double calculateLocalTax(String location,int income,Boolean isMarried, String pos) {
 		if (location.equals("New York")) {
 			if(!isMarried) {
 				if(income<8500) {
@@ -89,8 +170,11 @@ public class Payroll {
 		}
 		return localIncomeTax;
 	}
-	public double calculateFederalTax(Boolean isMarried, int income){
-		double federalIncomeTax=0.0;
+	public double calculateFederalTax(Boolean isMarried, int income, String pos){
+			if(pos.equals("Full-Time")) {
+
+			
+		
 			if(!isMarried) {
 				if(income<9700) {
 					//10%
@@ -161,22 +245,40 @@ public class Payroll {
 					System.out.println("Invalid Number");
 				}
 			}
-			return federalIncomeTax;
+		}
+			/* TODO: Calculate part time tax
+			else if(pos.equals("Part-time")){
+				if(!isMarried) {
+					if(income < 160){
+						federalIncomeTax = (0 * income) + 4;
+
+					}
+					else if(income >=160 && income <210) {
+						federalIncomeTax = (0 * income) + 9;
+					}
+					else if(income >=210 && income <260) {
+						federalIncomeTax = (0 *income) + 14; 
+					}
+					else if(income >=260 && income <310) {
+						federalIncomeTax = (0 * income) + 20;
+					}
+					else if(income >= 310 && income <)
+				}		
+			}
+			*/
+		return federalIncomeTax;
 	}
 	
-	public double calculateDeductions(int income,Boolean isMarried,String location) {
-		double netPay=0.0;
-		double totalTax=0.0;
+	public double calculateDeductions(double totalTax, int income) {
 		
-		totalTax=calculateFederalTax(isMarried,income)+calculateLocalTax(location,income,isMarried);
 		netPay=income-totalTax;
 		return netPay;
 	}
-	
-	public int calculateGrossIncome(int salary, String pos,int hourlyPay, int hrsWorkedPerWeek) {
-		int a=0;
+	//TODO: How are we doing this one? Hourly pay?
+	public int calculateGrossIncome(int salary, String pos, int hrsWorkedPerWeek) {
+		int a = 0;
 		if (pos.equals("Part-Time")) {
-		    a = hourlyPay*hrsWorkedPerWeek*52;
+		    a = salary*hrsWorkedPerWeek;
 		}
 		else if (pos.equals("Full-Time"))
 		{
@@ -184,6 +286,8 @@ public class Payroll {
 		}
 		return a;
 	}
-
+	public double calculateTotalTax(double localIncomeTax, double federalIncomeTax) {
+			return localIncomeTax + federalIncomeTax;
+	}
 	
 }
