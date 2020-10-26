@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,11 +17,13 @@ import Employee.*;
 public class BenefitsScreen implements ActionListener {
 	private static JFrame frame;
 
-	private static JLabel benefits, insurance;
+	private static JLabel benefits, insurance, image;
 
 	private static JPanel panel1;
 
 	private static JButton goBack;
+
+	private static ImageIcon icon;
 
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
@@ -53,10 +56,13 @@ public class BenefitsScreen implements ActionListener {
 			}
 		});
 		panel1.add(goBack);
-
+		icon = new ImageIcon("src/JJRPSLOGO.png");
+       image = new JLabel(icon);
+       image.setBounds(10, 180, 300, 300);
+       panel1.add(image);
 		frame = new JFrame();
 
-		frame.setSize(400, 200);
+		frame.setSize(400, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(panel1);

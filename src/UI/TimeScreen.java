@@ -10,6 +10,7 @@ import DatabaseCode.DatabaseCalls;
 import DatabaseCode.UserAccountDAO;
 import Employee.Employee;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +21,7 @@ import javax.swing.JTextField;
 public class TimeScreen implements ActionListener {
 	private static JLabel hours, ask;
 	private static JTextField idText;
-	private static JLabel passwordLabel;
+	private static JLabel passwordLabel, image;
 	private static JPasswordField passwordField;
 	private static JButton button, goBack;
 	private static JLabel loginSucess;
@@ -29,6 +30,7 @@ public class TimeScreen implements ActionListener {
 	private static JPanel panel1;
 	private UserAccountDAO dao;
 	private static Connection logindb;
+	private static ImageIcon icon;
 
 	
 	public static void createDashboard(Connection db, int id, Employee emp) {
@@ -82,8 +84,12 @@ public class TimeScreen implements ActionListener {
 			}
 		});
 		panel1.add(goBack);
+		icon = new ImageIcon("src/JJRPSLOGO.png");
+       image = new JLabel(icon);
+       image.setBounds(10, 180, 300, 300);
+       panel1.add(image);
 		frame = new JFrame();
-		frame.setSize(300, 200);
+		frame.setSize(300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(panel1);

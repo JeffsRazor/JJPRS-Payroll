@@ -88,6 +88,8 @@ public class Payroll {
 	}
 	
 	public double calculateLocalTax(String location,int income,Boolean isMarried, String pos) {
+		//TODO: Do taxes for part-time
+		if(pos.equals("Full-Time")){
 		if (location.equals("New York")) {
 			if(!isMarried) {
 				if(income<8500) {
@@ -168,6 +170,7 @@ public class Payroll {
 			
 			}
 		}
+	}
 		return localIncomeTax;
 	}
 	public double calculateFederalTax(Boolean isMarried, int income, String pos){

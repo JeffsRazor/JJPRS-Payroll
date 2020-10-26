@@ -30,7 +30,7 @@ public class ProfileScreen implements ActionListener {
 
     private static JLabel title, name,dob, hours,employeeId, 
     						position, phoneNum, email, retirementLabel, 
-    							healthInsurance, salary, admin, location, status;
+    							healthInsurance, salary, admin, location, status, image;
     private static JPanel panel1;
     private static Employee emp;
     private static ImageIcon icon;
@@ -40,7 +40,7 @@ public class ProfileScreen implements ActionListener {
     
     public static void createProfile(Connection db, Employee emp, int id) {
     	frame = new JFrame();
-        frame.setSize(270, 600);
+        frame.setSize(270, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         title = new JLabel("Welcome, " + emp.getName());
@@ -175,8 +175,11 @@ public class ProfileScreen implements ActionListener {
           }
         });
 
-         panel1.add(goBack);
-
+        panel1.add(goBack);
+        icon = new ImageIcon("src/JJRPSLOGO.png");
+       image = new JLabel(icon);
+       image.setBounds(10, 180, 300, 300);
+       panel1.add(image);
         frame.add(panel1);
         frame.setVisible(true);
         
