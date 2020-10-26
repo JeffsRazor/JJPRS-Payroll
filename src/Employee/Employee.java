@@ -42,65 +42,60 @@ public class Employee {
         return this.name;
     }
 
-    public void getDob(int id)
-    {
-        this.dob = dao.getDob(id);
+    public Boolean isRetirement() {
+        return this.retirement;
     }
 
-    public void getHours(int id)
-    {
-        this.hours= dao.getHours(id);
+    public Boolean isAdmin() {
+        return this.admin;
     }
 
-    public void getEmployeeID(int id)
-    {
-        this.employeeID = dao.getEmployeeID(id);
+    public Boolean isStatus() {
+        return this.status;
     }
 
-    public void getPosition(int id )
-    {
-        this.position = dao.getPosition(id);
+    public UserAccountDAO getDao() {
+        return this.dao;
     }
+
+
+    public Date getDob() {
+        return this.dob;
+    }
+
+    public int getHours() {
+        return this.hours;
+    }
+
+    public String getEmployeeID() {
+        return this.employeeID;
+    }
+
+    public String getPosition() {
+        return this.position;
+    }
+
+    public String getPhoneNum() {
+        return this.phoneNum;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getHealthInsurance() {
+        return this.healthInsurance;
+    }
+
+    public int getSalary() {
+        return this.salary;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
     
-    public void getPhoneNum(int id)
-    {
-        this.phoneNum = dao.getPhoneNum(id);
-    }
-
-    public void getEmail(int id)
-    {
-        this.email = dao.getEmail(id);
-    }
-
-    public void getRetirement(int id)
-    {
-        this.retirement = dao.getRetirement(id);
-    }
-
-    public void getHealthInsurance(int id)
-    {
-        this.healthInsurance = dao.getHealthInsurance(id);
-    }
-
-    public void getSalary(int id)
-    {
-        this.salary = dao.getSalary(id);
-    }
-
-    public void getAdmin(int id)
-    {
-        this.admin = dao.getAdmin(id);
-    }
-
-    public void getLocation(int id)
-    {
-        this.location = dao.getLocation(id);
-    }
-
-    public void getStatus(int id)
-    {
-       this.status = dao.getStatus(id);
-    }
 
     public void viewProfile(int ID) throws SQLException { // Displays all information based on the persons ID
         dao.viewProfile(ID);
