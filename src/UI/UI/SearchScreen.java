@@ -58,7 +58,13 @@ public class SearchScreen implements ActionListener {
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(100, 70, 165, 25);
-		
+        
+        name = new JLabel();
+        phoneNum = new JLabel();
+        email = new JLabel();
+        position = new JLabel();
+        location = new JLabel();
+
 		button = new JButton("Submit");
 		button.setSize(400, 180);
 		button.addActionListener(new ActionListener() {
@@ -67,32 +73,31 @@ public class SearchScreen implements ActionListener {
 			int ID = Integer.parseInt(iD);
 			Employee employeeHolder = new Employee (db,ID);//Employee Id Hold
 			try {
-				name = new JLabel("Employee Name: " + employeeHolder.getName());
+				name.setText("Employee Name: " + employeeHolder.getName());
 		        name.setFont(new Font("Serif", Font.BOLD, 20));
 		        name.setBounds(300, 0, 300, 25);
-		        panel1.add(name);
 		        
-		        phoneNum = new JLabel("Phone Number: " + employeeHolder.getPhoneNum());
+		        
+		        phoneNum.setText("Phone Number: " + employeeHolder.getPhoneNum());
 		        phoneNum.setFont(new Font("Serif", Font.BOLD, 20));
 		        phoneNum.setBounds(300, 0, 300, 25);
-		        panel1.add(phoneNum);
 		        
-		        email = new JLabel("Email: " + employeeHolder.getEmail());
+		        
+		        email.setText("Email: " + employeeHolder.getEmail());
 		        email.setFont(new Font("Serif", Font.BOLD, 20));
 		        email.setBounds(300, 0, 300, 25);
-		        panel1.add(email);
 		        
-		        position= new JLabel("Position: " + employeeHolder.getPosition());
+		        
+		        position.setText("Position: " + employeeHolder.getPosition());
 		        position.setFont(new Font("Serif", Font.BOLD, 20));
 		        position.setBounds(300, 0, 300, 25);
-		        panel1.add(position);
 		        
-		        location = new JLabel("Location: " + employeeHolder.getLocation());
+		        
+		        location.setText("Location: " + employeeHolder.getLocation());
 		        location.setFont(new Font("Serif", Font.BOLD, 20));
 		        location.setBounds(300, 0, 300, 25);
-		        panel1.add(location);
-		        frame.add(panel1);
-		        frame.setVisible(true);
+		        
+		        
 		       
 								
 			}catch(Exception a){
@@ -101,8 +106,14 @@ public class SearchScreen implements ActionListener {
 			
 		}
 		});
-		panel1.add(button);
-		
+        panel1.add(name);
+        panel1.add(phoneNum);
+        panel1.add(email);
+        panel1.add(position);
+        panel1.add(location);
+        panel1.add(button);
+        
+
 		goBack = new JButton("Return to employee dashboard");
 		goBack.setSize(400, 180);
 		goBack.addActionListener(new ActionListener() {
@@ -119,7 +130,8 @@ public class SearchScreen implements ActionListener {
 		frame = new JFrame();
 		frame.setSize(300, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+        frame.setLayout(new BorderLayout());
+        
 		frame.add(panel1);
 
 		frame.setVisible(true);
