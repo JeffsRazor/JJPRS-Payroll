@@ -124,6 +124,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
     panel1.add(timeManagementButton);
     panel1.add(benefitsButton);
     panel1.add(logoutButton);
+    panel1.add(searchButton);
     panel1.setBackground(Color.white);
     panel1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
     panel1.add(image);
