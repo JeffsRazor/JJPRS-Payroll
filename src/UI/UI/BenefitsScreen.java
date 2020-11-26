@@ -25,6 +25,8 @@ public class BenefitsScreen implements ActionListener {
 
 	private static ImageIcon icon;
 
+	private static  EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		panel1 = new JPanel();
@@ -51,7 +53,7 @@ public class BenefitsScreen implements ActionListener {
 		goBack.setSize(400, 180);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				EmployeeDashboard.createDashboard(db, id);
+				employeeDashboard.createDashboard(db, id);
 				frame.dispose();
 			}
 		});

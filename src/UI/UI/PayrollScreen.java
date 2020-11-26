@@ -31,7 +31,10 @@ public class PayrollScreen implements ActionListener {
 	private static JButton goBack;
 
 	private static ImageIcon icon;
+
 	private static Payroll payroll;
+
+	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
 
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
@@ -68,7 +71,7 @@ public class PayrollScreen implements ActionListener {
 		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				EmployeeDashboard.createDashboard(db, id);
+				employeeDashboard.createDashboard(db, id);
 				frame.dispose();
 			}
 		});

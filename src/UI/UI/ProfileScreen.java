@@ -36,7 +36,7 @@ public class ProfileScreen implements ActionListener {
     private static ImageIcon icon;
     private static Connection db;
     private static JButton goBack;
-    
+    private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
     
     public static void createProfile(Connection db, Employee emp, int id) {
     	frame = new JFrame();
@@ -170,7 +170,7 @@ public class ProfileScreen implements ActionListener {
         {
           public void actionPerformed(ActionEvent evt)
           {
-           EmployeeDashboard.createDashboard(db,id);
+           employeeDashboard.createDashboard(db,id);
            frame.dispose();
           }
         });

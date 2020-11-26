@@ -32,7 +32,7 @@ public class TimeScreen implements ActionListener {
 	private static Connection logindb;
 	private static ImageIcon icon;
 
-	
+	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
 	public static void createDashboard(Connection db, int id, Employee emp) {
 	
 
@@ -79,7 +79,7 @@ public class TimeScreen implements ActionListener {
 		goBack.setSize(400, 180);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				EmployeeDashboard.createDashboard(db, id);
+				employeeDashboard.createDashboard(db, id);
 				frame.dispose();
 			}
 		});

@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
-import DatabaseCode.DatabaseCalls;
 import DatabaseCode.UserAccountDAO;
 
 import javax.swing.Icon;
@@ -26,11 +25,13 @@ public class LoginScreen implements ActionListener {
     private static JLabel title, image;
     private static JFrame frame;
     private static JPanel p;
-    private UserAccountDAO dao;
+    private static UserAccountDAO dao;
     private static Connection logindb;
     private static Icon icon;
-    
-    public static void createLogin(Connection db){
+    private EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+    private HRDashboard hrDashboard = new HRDashboard();
+   
+    public void createLogin(Connection db){
         // Create frame and panel
         logindb = db;
         frame = new JFrame();
@@ -91,10 +92,10 @@ public class LoginScreen implements ActionListener {
            if(dbPassword.equals(password)) {
             loginSucess.setText("Login Successful!");
             if(dao.getAdmin(id)){
-                HRDashboard.createDashboard(logindb, id);
+                hrDashboard.createDashboard(logindb, id);
             }
             else{
-                EmployeeDashboard.createDashboard(logindb, id);
+                employeeDashboard.createDashboard(logindb, id);
             }
             
             frame.dispose();

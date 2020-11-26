@@ -1,8 +1,6 @@
 package Payroll;
 import java.sql.Connection;
 
-import javax.swing.text.Position;
-
 import DatabaseCode.UserAccountDAO;
 
 public class Payroll {
