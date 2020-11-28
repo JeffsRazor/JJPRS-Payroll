@@ -15,7 +15,7 @@ public class Payroll {
 		this.location = dao.getLocation(id);
 		this.insurance = dao.getHealthInsurance(id);
 		this.pos = dao.getPosition(id);
-		this.isMarried = dao.getStatus(id);
+		this.isMarried = dao.getMaritalStatus(id);
 	
 
 		this.hrsWorkedPerWeek = dao.getHours(id);

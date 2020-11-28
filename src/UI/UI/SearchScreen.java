@@ -1,4 +1,4 @@
-package UI;
+package UI.UI;
 import java.awt.*;
 import java.sql.Date;
 import java.text.DateFormat;  

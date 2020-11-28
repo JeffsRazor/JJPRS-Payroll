@@ -19,7 +19,8 @@ public class Employee {
     private int salary; 
     private Boolean admin;
     private String location;
-    private Boolean status;
+    private Boolean maritalStatus;
+    private String employmentStatus;
 
     private UserAccountDAO dao;
     
@@ -37,7 +38,8 @@ public class Employee {
         this.healthInsurance = dao.getHealthInsurance(id);
         this.admin = dao.getAdmin(id);
         this.location = dao.getLocation(id);
-        this.status = dao.getStatus(id);
+        this.maritalStatus = dao.getMaritalStatus(id);
+        this.employmentStatus = dao.getEmploymentStatus(id);
     }
 
     public String getName()
@@ -53,8 +55,8 @@ public class Employee {
         return this.admin;
     }
 
-    public Boolean isStatus() {
-        return this.status;
+    public Boolean isMaritalStatus() {
+        return this.maritalStatus;
     }
 
     public UserAccountDAO getDao() {
@@ -98,7 +100,9 @@ public class Employee {
         return this.location;
     }
 
-    
+    public String getEmploymentStatus() {
+        return this.employmentStatus;
+    } 
 
     public void viewProfile(int ID) throws SQLException { // Displays all information based on the persons ID
         dao.viewProfile(ID);
@@ -119,5 +123,4 @@ public class Employee {
     public void updatePassword(String pw, int ID) throws SQLException { // Updates employees hours
         dao.modifyPassword(pw,ID);
     }
-
 }

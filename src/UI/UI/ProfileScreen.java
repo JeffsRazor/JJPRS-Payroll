@@ -1,4 +1,4 @@
-package UI;
+package UI.UI;
 import java.awt.*;
 import java.sql.Date;
 import java.text.DateFormat;  
@@ -30,7 +30,7 @@ public class ProfileScreen implements ActionListener {
 
     private static JLabel title, name,dob, hours,employeeId, 
     						position, phoneNum, email, retirementLabel, 
-    							healthInsurance, salary, admin, location, status, image;
+    						healthInsurance, salary, admin, location, maritalStatus, employmentStatus, image;
     private static JPanel panel1;
     private static Employee emp;
     private static ImageIcon icon;
@@ -152,17 +152,22 @@ public class ProfileScreen implements ActionListener {
         frame.setVisible(true);
         
         String currentStatus=" ";
-        if (emp.isStatus()==true) {
+        if (emp.isMaritalStatus() == true) {
         	currentStatus="Married";
         }
         else {
         	currentStatus="Single";
         }
         
-        status = new JLabel("Status: " + currentStatus);
-        status.setFont(new Font("Serif", Font.BOLD, 20));
-        status.setBounds(300, 0, 300, 25);
-        panel1.add(status);
+        maritalStatus = new JLabel("Marital Status: " + currentStatus);
+        maritalStatus.setFont(new Font("Serif", Font.BOLD, 20));
+        maritalStatus.setBounds(300, 0, 300, 25);
+        panel1.add(maritalStatus);
+
+        employmentStatus= new JLabel("Employment Status: " + emp.getEmploymentStatus());
+        employmentStatus.setFont(new Font("Serif", Font.BOLD, 20));
+        employmentStatus.setBounds(300, 0, 300, 25);
+        panel1.add(employmentStatus);
 
         goBack = new JButton("Return to employee dashboard");
         goBack.setBounds(50, 50, 75, 25);

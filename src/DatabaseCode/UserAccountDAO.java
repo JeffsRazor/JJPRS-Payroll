@@ -248,15 +248,31 @@ public class UserAccountDAO {
         return s;
     }
 
-    public Boolean getStatus(int id)
+    public Boolean getMaritalStatus(int id)
     {
         ResultSet rs = null;
         Boolean s = null; 
         try {
             Statement stmt = db.createStatement();
-            rs = stmt.executeQuery("SELECT Status FROM employee WHERE employeeID =" + id );
+            rs = stmt.executeQuery("SELECT MaritalStatus FROM employee WHERE employeeID =" + id );
             rs.next();
-            s = rs.getBoolean("Status");
+            s = rs.getBoolean("MaritalStatus");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+    public String getEmploymentStatus(int id)
+    {
+        ResultSet rs = null;
+        String s = null; 
+        try {
+            Statement stmt = db.createStatement();
+            rs = stmt.executeQuery("SELECT EmploymentStatus FROM employee WHERE employeeID =" + id );
+            rs.next();
+            s = rs.getString("EmploymentStatus");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -384,6 +400,21 @@ public class UserAccountDAO {
         {
            PreparedStatement stmt = db.prepareStatement("UPDATE employee SET Retirement = ? WHERE employeeID = ?");
            stmt.setBoolean(1, retire);
+           stmt.setInt(2, ID);
+
+           stmt.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public void modifyEmploymentStatus(String pos, int ID) {
+    	try
+        {
+           PreparedStatement stmt = db.prepareStatement("UPDATE employee SET EmploymentStatus = ? WHERE employeeID = ?");
+           stmt.setString(1, pos);
            stmt.setInt(2, ID);
 
            stmt.executeUpdate();
