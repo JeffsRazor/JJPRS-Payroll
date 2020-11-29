@@ -1,4 +1,5 @@
 package Payroll;
+
 import java.sql.Connection;
 
 import DatabaseCode.UserAccountDAO;
@@ -9,6 +10,7 @@ public class Payroll {
 	private double localIncomeTax, federalIncomeTax, totalTax, netPay;
 	private int salary, income, hrsWorkedPerWeek;
 	private UserAccountDAO dao;
+
 	public Payroll(Connection db, int id) {
 		this.dao = new UserAccountDAO(db);
 		this.salary = dao.getSalary(id);
@@ -16,18 +18,14 @@ public class Payroll {
 		this.insurance = dao.getHealthInsurance(id);
 		this.pos = dao.getPosition(id);
 		this.isMarried = dao.getMaritalStatus(id);
-	
-
-		this.hrsWorkedPerWeek = dao.getHours(id);
-
-		this.income= calculateGrossIncome(salary, pos, hrsWorkedPerWeek);
-
+		//this.hrsWorkedPerWeek = dao.getHours(id);
+		this.income = calculateGrossIncome(salary, pos);
 		this.localIncomeTax = calculateLocalTax(location, income, isMarried, pos);
 		this.federalIncomeTax = calculateFederalTax(isMarried, income, pos);
 		this.totalTax = calculateTotalTax(localIncomeTax, federalIncomeTax);
 		this.netPay = calculateDeductions(totalTax, income);
 	}
-	
+
 	public String getLocation() {
 		return this.location;
 	}
@@ -80,205 +78,457 @@ public class Payroll {
 		return this.dao;
 	}
 
-
 	public void calculateBenefits(String insurance) {
-		 
+
 	}
+
 	
-	public double calculateLocalTax(String location,int income,Boolean isMarried, String pos) {
-		//TODO: Do taxes for part-time
-		if(pos.equals("Full-Time")){
+	//Calculate Local Tax by Location, martial status, and Full/Part time
+	public double calculateLocalTax(String location, int income, Boolean isMarried, String pos) {
+
 		if (location.equals("New York")) {
-			if(!isMarried) {
-				if(income<8500) {
-					//4%
-					 localIncomeTax=.04 * income;
-					
+			if (pos.equals("Full-Time")) {
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 8500) {
+						// 4%
+						localIncomeTax = .04 * income;
+					} else if (income > 8500 && income <= 11700) {
+						// 4.5%
+						localIncomeTax = .045 * income;
+					} else if (income > 11700 && income <= 13900) {
+						// 5.25%
+						localIncomeTax = .0525 * income;
+					} else if (income > 13900 && income <= 21400) {
+						// 5.9%
+						localIncomeTax = .059 * income;
+					} else if (income > 21400 && income <= 80650) {
+						// 6.33%
+						localIncomeTax = .0633 * income;
+					} else if (income > 80650 && income <= 215400) {
+						// 6.57
+						localIncomeTax = .0657 * income;
+					} else if (income > 215400 && income <= 1077550) {
+						// 6.85
+						localIncomeTax = .0685 * income;
+					} else if (income > 1077550) {
+						// 8.82
+						localIncomeTax = .0882 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & full time NY tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 17150) {
+						// 4%
+						localIncomeTax = .04 * income;
+					} else if (income > 17150 && income <= 23600) {
+						// 4.5%
+						localIncomeTax = .045 * income;
+					} else if (income > 23600 && income <= 27900) {
+						// 5.25%
+						localIncomeTax = .0525 * income;
+					} else if (income > 27900 && income <= 43000) {
+						// 5.9%
+						localIncomeTax = .059 * income;
+					} else if (income > 43000 && income <= 161550) {
+						// 6.33%
+						localIncomeTax = .0633 * income;
+					} else if (income > 161550 && income <= 323200) {
+						// 6.57
+						localIncomeTax = .0657 * income;
+					} else if (income > 323200 && income <= 2155350) {
+						// 6.85
+						localIncomeTax = .0685 * income;
+					} else if (income > 2155350) {
+						// 8.82
+						localIncomeTax = .0882 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & full time NY tax calculation.");
+					}
 				}
-				else if (income>8500 && income<11700) {
-					//4.5%
-					 localIncomeTax=.045 * income;
+			} else if (pos.equals("Part-Time")) { // Part Time
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 8500) {
+						// 4%
+						localIncomeTax = .04 * income;
+					} else if (income > 8500 && income <= 11700) {
+						// 4.5%
+						localIncomeTax = .045 * income;
+					} else if (income > 11700 && income <= 13900) {
+						// 5.25%
+						localIncomeTax = .0525 * income;
+					} else if (income > 13900 && income <= 21400) {
+						// 5.9%
+						localIncomeTax = .059 * income;
+					} else if (income > 21400 && income <= 80650) {
+						// 6.33%
+						localIncomeTax = .0633 * income;
+					} else if (income > 80650 && income <= 215400) {
+						// 6.57
+						localIncomeTax = .0657 * income;
+					} else if (income > 215400 && income <= 1077550) {
+						// 6.85
+						localIncomeTax = .0685 * income;
+					} else if (income > 1077550) {
+						// 8.82
+						localIncomeTax = .0882 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & part time NY tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 17150) {
+						// 4%
+						localIncomeTax = .04 * income;
+					} else if (income > 17150 && income <= 23600) {
+						// 4.5%
+						localIncomeTax = .045 * income;
+					} else if (income > 23600 && income <= 27900) {
+						// 5.25%
+						localIncomeTax = .0525 * income;
+					} else if (income > 27900 && income <= 43000) {
+						// 5.9%
+						localIncomeTax = .059 * income;
+					} else if (income > 43000 && income <= 161550) {
+						// 6.33%
+						localIncomeTax = .0633 * income;
+					} else if (income > 161550 && income <= 323200) {
+						// 6.57
+						localIncomeTax = .0657 * income;
+					} else if (income > 323200 && income <= 2155350) {
+						// 6.85
+						localIncomeTax = .0685 * income;
+					} else if (income > 2155350) {
+						// 8.82
+						localIncomeTax = .0882 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & part time NY tax calculation.");
+					}
 				}
-				else if (income>11700 && income<13900) {
-					//5.25%
-					 localIncomeTax=.0525 * income;
-				}
-				else if(income>13900 && income<21400) {
-					//5.9%
-					 localIncomeTax=.059 * income;
-				}
-				else if(income>21400 && income<80650) {
-					//6.21%
-					 localIncomeTax=.0621 * income;
-				}
-				else if(income>80650 && income<215400) {
-					//6.49
-					 localIncomeTax=.0649 * income;
-				}
-				else if (income>215400 && income<1077550) {
-					//6.85
-					 localIncomeTax=.0685*income;
-				}
-				else if(income<1077550) {
-					//8.82
-					localIncomeTax=.0882*income;
-				}
-				else {
-					//Invalid number
-					System.out.println("Invalid Number");
-				}
-			}
-			else {
-				if(income<17500) {
-					//4%
-					 localIncomeTax=.04 * income;
-				}
-				else if (income>17500 && income<23600) {
-					//4.5%
-					 localIncomeTax=.045 * income;
-				}
-				else if (income>23600 && income<27900) {
-					//5.25%
-					 localIncomeTax=.0525 * income;
-				}
-				else if(income>27900 && income<43000) {
-					//5.9%
-					 localIncomeTax=.059 * income;
-				}
-				else if(income>43000 && income<161550) {
-					//6.09%
-					 localIncomeTax=.0609 * income;
-				}
-				else if(income>161550 && income<323200) {
-					//6.41
-					 localIncomeTax=.0641 * income;
-				}
-				else if (income>323200 && income<2155350) {
-					//6.85
-					 localIncomeTax=.0685*income;
-				}
-				else if(income<2155350) {
-					//8.82
-					localIncomeTax=.0882*income;
-				}
-				else {
-					//Invalid number
-					System.out.println("Invalid Number");
-				}
-			
 			}
 		}
-	}
+
+		else if (location.equals("Connecticut")) {
+			if (pos.equals("Full-Time")) {
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 10000) {
+						// 3%
+						localIncomeTax = .03 * income;
+					} else if (income > 10000 && income <= 50000) {
+						// 5%
+						localIncomeTax = .05 * income;
+					} else if (income > 50000 && income <= 100000) {
+						// 5.5%
+						localIncomeTax = .055 * income;
+					} else if (income > 100000 && income <= 200000) {
+						// 6%
+						localIncomeTax = .06 * income;
+					} else if (income > 200000 && income <= 250000) {
+						// 6.5%
+						localIncomeTax = .065 * income;
+					} else if (income > 250000 && income <= 500000) {
+						// 6.9
+						localIncomeTax = .069 * income;
+					} else if (income > 500000) {
+						// 6.99
+						localIncomeTax = .0699 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & full time CT tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 20000) {
+						// 3%
+						localIncomeTax = .03 * income;
+					} else if (income > 20000 && income <= 100000) {
+						// 5%
+						localIncomeTax = .05 * income;
+					} else if (income > 100000 && income <= 200000) {
+						// 5.5%
+						localIncomeTax = .055 * income;
+					} else if (income > 200000 && income <= 400000) {
+						// 6%
+						localIncomeTax = .06 * income;
+					} else if (income > 400000 && income <= 500000) {
+						// 6.5%
+						localIncomeTax = .065 * income;
+					} else if (income > 500000 && income <= 1000000) {
+						// 6.9
+						localIncomeTax = .069 * income;
+					} else if (income > 1000000) {
+						// 6.99
+						localIncomeTax = .0699 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & full time CT tax calculation.");
+					}
+				}
+			} else if (pos.equals("Part-Time")) { // Part Time
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 10000) {
+						// 3%
+						localIncomeTax = .03 * income;
+					} else if (income > 10000 && income <= 50000) {
+						// 5%
+						localIncomeTax = .05 * income;
+					} else if (income > 50000 && income <= 100000) {
+						// 5.5%
+						localIncomeTax = .055 * income;
+					} else if (income > 100000 && income <= 200000) {
+						// 6%
+						localIncomeTax = .06 * income;
+					} else if (income > 200000 && income <= 250000) {
+						// 6.5%
+						localIncomeTax = .065 * income;
+					} else if (income > 250000 && income <= 500000) {
+						// 6.9
+						localIncomeTax = .069 * income;
+					} else if (income > 500000) {
+						// 6.99
+						localIncomeTax = .0699 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & part time CT tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 20000) {
+						// 3%
+						localIncomeTax = .03 * income;
+					} else if (income > 20000 && income <= 100000) {
+						// 5%
+						localIncomeTax = .05 * income;
+					} else if (income > 100000 && income <= 200000) {
+						// 5.5%
+						localIncomeTax = .055 * income;
+					} else if (income > 200000 && income <= 400000) {
+						// 6%
+						localIncomeTax = .06 * income;
+					} else if (income > 400000 && income <= 500000) {
+						// 6.5%
+						localIncomeTax = .065 * income;
+					} else if (income > 500000 && income <= 1000000) {
+						// 6.9
+						localIncomeTax = .069 * income;
+					} else if (income > 1000000) {
+						// 6.99
+						localIncomeTax = .0699 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & part time CT tax calculation.");
+					}
+				}
+			}
+		}
+
+		else if (location.equals("New Jersey")) {
+			if (pos.equals("Full-Time")) {
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 20000) {
+						// 1.4%
+						localIncomeTax = .014 * income;
+					} else if (income > 20000 && income <= 35000) {
+						// 1.75%
+						localIncomeTax = .0175 * income;
+					} else if (income > 35000 && income <= 40000) {
+						// 3.5%
+						localIncomeTax = .035 * income;
+					} else if (income > 40000 && income <= 75000) {
+						// 5.525%
+						localIncomeTax = .05525 * income;
+					} else if (income > 75000 && income <= 500000) {
+						// 6.37%
+						localIncomeTax = .0637 * income;
+					} else if (income > 500000 && income <= 5000000) {
+						// 8.97
+						localIncomeTax = .0897 * income;
+					} else if (income > 5000000) {
+						// 10.75
+						localIncomeTax = .01075 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & full time NJ tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 20000) {
+						// 1.4%
+						localIncomeTax = .014 * income;
+					} else if (income > 20000 && income <= 50000) {
+						// 1.75%
+						localIncomeTax = .0175 * income;
+					} else if (income > 50000 && income <= 70000) {
+						// 2.45%
+						localIncomeTax = .0245 * income;
+					} else if (income > 70000 && income <= 80000) {
+						// 3.5%
+						localIncomeTax = .035 * income;
+					} else if (income > 80000 && income <= 150000) {
+						// 5.525%
+						localIncomeTax = .05525 * income;
+					} else if (income > 150000 && income <= 500000) {
+						// 6.37
+						localIncomeTax = .0637 * income;
+					} else if (income > 500000 && income <= 5000000) {
+						// 8.97
+						localIncomeTax = .0897 * income;
+					} else if (income > 5000000) {
+						// 10.75
+						localIncomeTax = .01075 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & full time NJ tax calculation.");
+					}
+				}
+			} else if (pos.equals("Part-Time")) { // Part Time
+				if (!isMarried) { // Single
+					if (income >= 0 && income <= 20000) {
+						// 1.4%
+						localIncomeTax = .014 * income;
+					} else if (income > 20000 && income <= 35000) {
+						// 1.75%
+						localIncomeTax = .0175 * income;
+					} else if (income > 35000 && income <= 40000) {
+						// 3.5%
+						localIncomeTax = .035 * income;
+					} else if (income > 40000 && income <= 75000) {
+						// 5.525%
+						localIncomeTax = .05525 * income;
+					} else if (income > 75000 && income <= 500000) {
+						// 6.37%
+						localIncomeTax = .0637 * income;
+					} else if (income > 500000 && income <= 5000000) {
+						// 8.97
+						localIncomeTax = .0897 * income;
+					} else if (income > 5000000) {
+						// 10.75
+						localIncomeTax = .01075 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid single & part time NJ tax calculation.");
+					}
+				} else { // Married
+					if (income >= 0 && income <= 20000) {
+						// 1.4%
+						localIncomeTax = .014 * income;
+					} else if (income > 20000 && income <= 50000) {
+						// 1.75%
+						localIncomeTax = .0175 * income;
+					} else if (income > 50000 && income <= 70000) {
+						// 2.45%
+						localIncomeTax = .0245 * income;
+					} else if (income > 70000 && income <= 80000) {
+						// 3.5%
+						localIncomeTax = .035 * income;
+					} else if (income > 80000 && income <= 150000) {
+						// 5.525%
+						localIncomeTax = .05525 * income;
+					} else if (income > 150000 && income <= 500000) {
+						// 6.37
+						localIncomeTax = .0637 * income;
+					} else if (income > 500000 && income <= 5000000) {
+						// 8.97
+						localIncomeTax = .0897 * income;
+					} else if (income > 5000000) {
+						// 10.75
+						localIncomeTax = .01075 * income;
+					} else {
+						// Invalid number
+						System.out.println("Invalid married & part time NJ tax calculation.");
+					}
+				}
+			}
+		}
 		return localIncomeTax;
 	}
+	
+	//Federal tax is for everyone in the country. Both Full Time and Part Time are the same but changes if they are married or not married.
 	public double calculateFederalTax(Boolean isMarried, int income, String pos){
-			if(pos.equals("Full-Time")) {
-
-			
-		
-			if(!isMarried) {
-				if(income<9700) {
+			if(pos.equals("Full-Time") || pos.equals("Part-Time")) {
+			if(!isMarried) {//Single
+				if(income>=0 && income<=9875) { 
 					//10%
 					federalIncomeTax=.1 * income;
-					
 				}
-				else if (income>9700 && income<39475) {
-					//12
+				else if (income>9875 && income<=40125) { 
+					//12%
 					federalIncomeTax=.12 * income;
 				}
-				else if (income>39475 && income<84200) {
+				else if (income>40125 && income<=85525) {
 					//22%
 					federalIncomeTax=.22 * income;
 				}
-				else if(income>84200 && income<160725) {
+				else if(income>85525 && income<=163300) {
 					//24%
 					federalIncomeTax=.24 * income;
 				}
-				else if(income>160275 && income<204100) {
+				else if(income>163300 && income<=207350) {
 					//32%
 					federalIncomeTax=.32 * income;
 				}
-				else if(income>204100 && income<510300) {
+				else if(income>207350 && income<=518400) {
 					//35
 					federalIncomeTax=.35 * income;
 				}
-				else if(income>510300) {
+				else if(income>518400) {
 					//37
 					federalIncomeTax=.37*income;
 				}
 
 				else {
-					//Invalid number
-					System.out.println("Invalid Number");
+					System.out.println("Invald single fedaral tax calculation.");
 				}
 			}
-			else {
-				if(income<19400) {
+			else { //Married
+				if(income>=0 && income<=19750) { 
 					//10%
 					federalIncomeTax=.1 * income;
 				}
-				else if (income>19400 && income<78950) {
-					//12
+				else if (income>19750 && income<=80250) { 
+					//12%
 					federalIncomeTax=.12 * income;
 				}
-				else if (income>78950 && income<168400) {
+				else if (income>80250 && income<=171050) {
 					//22%
 					federalIncomeTax=.22 * income;
 				}
-				else if(income>168400 && income<321450) {
+				else if(income>171050 && income<=326600) {
 					//24%
 					federalIncomeTax=.24 * income;
 				}
-				else if(income>321450 && income<408200) {
+				else if(income>326600 && income<=414700) {
 					//32%
 					federalIncomeTax=.32 * income;
 				}
-				else if(income>408200 && income<612350) {
+				else if(income>414700 && income<=622050) {
 					//35
 					federalIncomeTax=.35 * income;
 				}
-				else if (income>612350) {
+				else if(income>622050) {
 					//37
 					federalIncomeTax=.37*income;
 				}
+
 				else {
-					//Invalid number
-					System.out.println("Invalid Number");
+					System.out.println("Invald married fedaral tax calculation.");
 				}
 			}
 		}
-			/* TODO: Calculate part time tax
-			else if(pos.equals("Part-time")){
-				if(!isMarried) {
-					if(income < 160){
-						federalIncomeTax = (0 * income) + 4;
-					}
-					else if(income >=160 && income <210) {
-						federalIncomeTax = (0 * income) + 9;
-					}
-					else if(income >=210 && income <260) {
-						federalIncomeTax = (0 *income) + 14; 
-					}
-					else if(income >=260 && income <310) {
-						federalIncomeTax = (0 * income) + 20;
-					}
-					else if(income >= 310 && income <)
-				}		
-			}
-			*/
 		return federalIncomeTax;
 	}
-	
+		
+	//Calculates Net Pay which is pay after tax deductions are applied. Also used for retirement plan calculations
 	public double calculateDeductions(double totalTax, int income) {
 		
 		netPay=income-totalTax;
 		return netPay;
 	}
-	//TODO: How are we doing this one? Hourly pay?
-	public int calculateGrossIncome(int salary, String pos, int hrsWorkedPerWeek) {
+	
+	//Gross Income is their salary and with no tax deductions
+	public int calculateGrossIncome(int salary, String pos) {
 		int a = 0;
 		if (pos.equals("Part-Time")) {
-		    a = salary*hrsWorkedPerWeek;
+		    a = salary*26;
 		}
 		else if (pos.equals("Full-Time"))
 		{
@@ -286,6 +536,8 @@ public class Payroll {
 		}
 		return a;
 	}
+
+	//Calculates the total tax to deduct from the salary
 	public double calculateTotalTax(double localIncomeTax, double federalIncomeTax) {
 			return localIncomeTax + federalIncomeTax;
 	}
