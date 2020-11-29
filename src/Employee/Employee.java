@@ -22,7 +22,7 @@ public class Employee {
     private Boolean maritalStatus;
     private String employmentStatus;
 
-    private UserAccountDAO dao;
+    protected UserAccountDAO dao;
     
     public Employee(Connection db, int id) {
         this.dao = new UserAccountDAO(db);
@@ -123,4 +123,5 @@ public class Employee {
     public void updatePassword(String pw, int ID) throws SQLException { // Updates employees hours
         dao.modifyPassword(pw,ID);
     }
+
 }

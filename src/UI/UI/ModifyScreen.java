@@ -28,7 +28,7 @@ public class ModifyScreen implements ActionListener {
 	private static JTextField idText, salaryText;
 	private static JLabel passwordLabel, image;
 	private static JPasswordField passwordField;
-	private static JButton button, goBacktoModify, goBacktoEmployeeDash, submitButton;
+	private static JButton button, goBacktoModify, goBack, submitButton;
 	private static JLabel idLabel, employeeExist;
 	private static JLabel title, title2;
 	private static JFrame frame1, frame2;
@@ -40,7 +40,7 @@ public class ModifyScreen implements ActionListener {
 	private static HRDashboard HRDashboard = new HRDashboard();
 	private static int originalID; //to store id of the original login
 
-	public static void startModifyScreen(Connection db, int id) {
+	public static void chooseEmployeetoModify(Connection db, int id) {
 		originalID = id; // store the original login id to use with go back button
 		frame1 = new JFrame();
 		panel1 = new JPanel();
@@ -77,12 +77,11 @@ public class ModifyScreen implements ActionListener {
 				int modifyempID = Integer.parseInt(empID);
 
 				try {
-					
-						HR emp = new HR(db, modifyempID);
+						HR HRemp = new HR(db, modifyempID);
 
 						//Check to make sure that the employee Exists NEED TO MAKE THIS MORE SECURE
-						if(emp.getName() != null){
-							ModifyScreen.createModifyScreen(db, modifyempID, emp);	
+						if(HRemp.getName() != null){
+							ModifyScreen.createModifyScreen(db, modifyempID, HRemp);	
 							frame1.dispose();
 						}else
 						{
@@ -98,9 +97,9 @@ public class ModifyScreen implements ActionListener {
 		});
 		panel1.add(submitButton);
 		
-		goBacktoEmployeeDash = new JButton("Return to employee dashboard");
-        goBacktoEmployeeDash.setBounds(100, 100, 225, 25);
-        goBacktoEmployeeDash.addActionListener(new ActionListener()
+		goBack = new JButton("Return to employee dashboard");
+        goBack.setBounds(100, 100, 225, 25);
+        goBack.addActionListener(new ActionListener()
         {
           public void actionPerformed(ActionEvent evt)
           {
@@ -108,7 +107,7 @@ public class ModifyScreen implements ActionListener {
            frame1.dispose();
           }
         });
-        panel1.add(goBacktoEmployeeDash);
+        panel1.add(goBack);
 		icon = new ImageIcon("src/JJRPSLOGO.png");
 		image = new JLabel(icon);
 		image.setBounds(10, 180, 300, 300);
@@ -315,7 +314,7 @@ public class ModifyScreen implements ActionListener {
 		goBacktoModify.setSize(400, 180);
 		goBacktoModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				ModifyScreen.startModifyScreen(db, originalID);
+				ModifyScreen.chooseEmployeetoModify(db, originalID);
 				frame2.dispose();
 			}
 		});
