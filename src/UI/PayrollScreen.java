@@ -35,7 +35,8 @@ public class PayrollScreen implements ActionListener {
 	private static Payroll payroll;
 
 	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-
+	
+	private static HRDashboard hrDashboard = new HRDashboard();
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		payroll = new Payroll(db, id);
@@ -66,14 +67,22 @@ public class PayrollScreen implements ActionListener {
 
 		panel1.add(position);
 
-		System.out.println("yeet");
-		goBack = new JButton("Return to employee dashboard");
+		goBack = new JButton("Return to dashboard");
 		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				employeeDashboard.createDashboard(db, id);
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
 				frame.dispose();
+			
+				}
+				else{
+					employeeDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
 			}
+
+
 		});
 
         panel1.add(goBack);

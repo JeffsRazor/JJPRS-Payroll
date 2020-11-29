@@ -37,6 +37,7 @@ public class ProfileScreen implements ActionListener {
     private static Connection db;
     private static JButton goBack;
     private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+    private static HRDashboard hrDashboard = new HRDashboard();
     
     public static void createProfile(Connection db, Employee emp, int id) {
     	frame = new JFrame();
@@ -131,13 +132,13 @@ public class ProfileScreen implements ActionListener {
         String isAdmin=" ";
         
         if (emp.isAdmin()==true) {
-        	isAdmin = "Admin";
+        	isAdmin = "Privledge Level: Admin";
         }
         else {
-        	isAdmin = "Employee";
+        	isAdmin = "Privledge Level: Employee";
         }
         
-        admin = new JLabel("Admin Privleges: " + isAdmin);
+        admin = new JLabel(isAdmin);
         admin.setFont(new Font("Serif", Font.BOLD, 20));
         admin.setBounds(300, 0, 300, 25);
         panel1.add(admin);
@@ -152,7 +153,7 @@ public class ProfileScreen implements ActionListener {
         frame.setVisible(true);
         
         String currentStatus=" ";
-        if (emp.isStatus()==true) {
+        if (emp.isMaritalStatus() == true) {
         	currentStatus="Married";
         }
         else {
@@ -164,16 +165,23 @@ public class ProfileScreen implements ActionListener {
         status.setBounds(300, 0, 300, 25);
         panel1.add(status);
 
-        goBack = new JButton("Return to employee dashboard");
-        goBack.setBounds(50, 50, 75, 25);
-        goBack.addActionListener(new ActionListener()
-        {
-          public void actionPerformed(ActionEvent evt)
-          {
-           employeeDashboard.createDashboard(db,id);
-           frame.dispose();
-          }
-        });
+        goBack = new JButton("Return to dashboard");
+		goBack.setBounds(50, 50, 75, 25);
+		goBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
+				frame.dispose();
+			
+				}
+				else{
+					employeeDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
+			}
+
+
+		});
 
         panel1.add(goBack);
         icon = new ImageIcon("src/JJRPSLOGO.png");

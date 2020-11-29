@@ -25,7 +25,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
 
     private JPanel panel1;
     
-    private JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton;
+    private JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton, modifyButton;
 
     private Employee emp;
 
@@ -115,7 +115,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
            SearchScreen.createDashboard(db, id, emp);
            frame.dispose();
           }
-        });
+        });  
 
     panel1.setLayout(new FlowLayout());
     panel1.add(title);
@@ -124,6 +124,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
     panel1.add(timeManagementButton);
     panel1.add(benefitsButton);
     panel1.add(searchButton);
+   // panel1.add(modifyButton); // REMOVE WHEN HR DASHBOARD IS IMPLEMENTED
     panel1.add(logoutButton);
    
     panel1.setBackground(Color.white);

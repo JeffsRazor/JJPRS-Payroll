@@ -15,7 +15,7 @@ public class Payroll {
 		this.location = dao.getLocation(id);
 		this.insurance = dao.getHealthInsurance(id);
 		this.pos = dao.getPosition(id);
-		this.isMarried = dao.getStatus(id);
+		this.isMarried = dao.getMaritalStatus(id);
 	
 
 		this.hrsWorkedPerWeek = dao.getHours(id);
@@ -252,7 +252,6 @@ public class Payroll {
 				if(!isMarried) {
 					if(income < 160){
 						federalIncomeTax = (0 * income) + 4;
-
 					}
 					else if(income >=160 && income <210) {
 						federalIncomeTax = (0 * income) + 9;

@@ -101,7 +101,7 @@ public class LoginScreen implements ActionListener {
             frame.dispose();
             }
             
-            else {
+           else {
                 loginSucess.setText("Wrong credentials");
             }
         

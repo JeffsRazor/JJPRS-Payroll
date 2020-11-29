@@ -40,7 +40,8 @@ public class SearchScreen implements ActionListener {
 	private static Connection logindb;
 	private static ImageIcon icon;
 	private static JLabel name, position, phoneNum, email,location;
-    private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+	private static HRDashboard hrDashboard = new HRDashboard();
 	
 	public static void createDashboard(Connection db, int id, Employee emp) {
 	
@@ -114,13 +115,22 @@ public class SearchScreen implements ActionListener {
         panel1.add(button);
         
 
-		goBack = new JButton("Return to employee dashboard");
-		goBack.setSize(400, 180);
+		goBack = new JButton("Return to dashboard");
+		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				employeeDashboard.createDashboard(db, id);
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
 				frame.dispose();
+			
+				}
+				else{
+					employeeDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
 			}
+
+
 		});
 		panel1.add(goBack);
 		icon = new ImageIcon("src/JJRPSLOGO.png");

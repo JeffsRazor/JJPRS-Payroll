@@ -30,4 +30,7 @@ public class HR extends Employee {
         dao.modifyRetirement(retire,ID);
     }
     
+    public void updateEmploymentStatus(String pos, int ID) throws SQLException { 
+        dao.modifyEmploymentStatus(pos,ID);
+    }
 }
