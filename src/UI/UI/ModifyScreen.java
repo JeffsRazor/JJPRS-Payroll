@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import DatabaseCode.DatabaseCalls;
 import DatabaseCode.UserAccountDAO;
 import Employee.Employee;
+import Employee.HR;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,7 +37,7 @@ public class ModifyScreen implements ActionListener {
 	private static Connection logindb;
 	private static ImageIcon icon;
 	private static JRadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7, radioButton8, radioButton9;
-	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+	private static HRDashboard HRDashboard = new HRDashboard();
 	private static int originalID; //to store id of the original login
 
 	public static void startModifyScreen(Connection db, int id) {
@@ -77,7 +78,7 @@ public class ModifyScreen implements ActionListener {
 
 				try {
 					
-						Employee emp = new Employee(db, modifyempID);
+						HR emp = new HR(db, modifyempID);
 
 						//Check to make sure that the employee Exists NEED TO MAKE THIS MORE SECURE
 						if(emp.getName() != null){
@@ -103,7 +104,7 @@ public class ModifyScreen implements ActionListener {
         {
           public void actionPerformed(ActionEvent evt)
           {
-           employeeDashboard.createDashboard(db,id);
+			HRDashboard.createDashboard(db,id);
            frame1.dispose();
           }
         });
@@ -115,11 +116,11 @@ public class ModifyScreen implements ActionListener {
 		frame1.setVisible(true);
 	}
 
-	public static void createModifyScreen(Connection db, int id, Employee emp) {
+	public static void createModifyScreen(Connection db, int id, HR HRemp) {
 
 		panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
-		title2 = new JLabel("Modify " + emp.getName() + "'s Account");
+		title2 = new JLabel("Modify " + HRemp.getName() + "'s Account");
 		title2.setBounds(150, 0, 300, 25);
 		panel2.add(title2);
 
@@ -137,7 +138,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateHI("Bronze", id);
+					HRemp.updateHI("Bronze", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -148,7 +149,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateHI("Gold", id);
+					HRemp.updateHI("Gold", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -174,7 +175,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updatePosition("Full-Time", id);
+					HRemp.updatePosition("Full-Time", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -185,7 +186,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updatePosition("Part-Time", id);
+					HRemp.updatePosition("Part-Time", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -217,7 +218,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateEmploymentStatus("Active", id);
+					HRemp.updateEmploymentStatus("Active", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -228,7 +229,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateEmploymentStatus("Terminated", id);
+					HRemp.updateEmploymentStatus("Terminated", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -239,7 +240,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateEmploymentStatus("Disabled", id);
+					HRemp.updateEmploymentStatus("Disabled", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -250,7 +251,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateEmploymentStatus("Deceased", id);
+					HRemp.updateEmploymentStatus("Deceased", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -261,7 +262,7 @@ public class ModifyScreen implements ActionListener {
 		radioButton9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					emp.updateEmploymentStatus("Quit", id);
+					HRemp.updateEmploymentStatus("Quit", id);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -276,7 +277,7 @@ public class ModifyScreen implements ActionListener {
 		//Modify Employee Status end
 		
 		// Modify Salary
-		currentSalary = new JLabel("Current Salary: " + emp.getSalary());
+		currentSalary = new JLabel("Current Salary: " + HRemp.getSalary());
 		currentSalary.setFont(currentSalary.getFont().deriveFont(20f));
 		panel2.add(currentSalary);
 
@@ -299,7 +300,7 @@ public class ModifyScreen implements ActionListener {
 				int newSalary = Integer.parseInt(salary);
 
 				try {
-					emp.updateSalary(newSalary, id);
+					HRemp.updateSalary(newSalary, id);
 
 				} catch (Exception a) {
 					System.out.println("yeeet");
