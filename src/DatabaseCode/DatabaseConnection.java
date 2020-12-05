@@ -9,7 +9,7 @@ public class DatabaseConnection {
 
 	public static Connection getDatabase() throws SQLException {
 		 return DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts",
-		 "root", "MySQLpassword"); //Local host connection to the 
+		 "root", ""); //NOTE password needs to be changed to user's sql password
 	}
 
 }

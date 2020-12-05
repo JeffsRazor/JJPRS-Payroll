@@ -1,4 +1,4 @@
-package UI.UI;
+package UI;
 
 import java.awt.*;
 import java.sql.Connection;

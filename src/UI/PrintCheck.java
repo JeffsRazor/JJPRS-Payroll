@@ -1,4 +1,4 @@
-package UI.UI;
+package UI;
 
 import Payroll.Payroll;
 

@@ -1,4 +1,4 @@
-package UI.UI;
+package UI;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -6,7 +6,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import DatabaseCode.DatabaseCalls;
 import DatabaseCode.UserAccountDAO;
 import Employee.Employee;
 

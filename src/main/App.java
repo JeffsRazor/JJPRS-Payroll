@@ -1,8 +1,9 @@
-package UI.UI;
+package main;
 
 import java.sql.Connection;
 
 import DatabaseCode.DatabaseConnection;
+import UI.LoginScreen;
 
 
 public class App {

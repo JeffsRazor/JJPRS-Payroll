@@ -79,7 +79,8 @@ public class Payroll {
 	}
 
 	public void calculateBenefits(String insurance) {
-
+		//take out for retirement
+		//take out for health insurance Bronze, Silver, Gold
 	}
 
 	
