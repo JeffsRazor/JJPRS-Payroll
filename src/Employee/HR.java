@@ -3,11 +3,8 @@ package Employee;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import DatabaseCode.UserAccountDAO;
 
 public class HR extends Employee {
-
-    private UserAccountDAO dao;
 
     public HR(Connection db, int id) {
         super(db, id);
@@ -22,7 +19,6 @@ public class HR extends Employee {
     }
     
     public void updatePosition(String pos, int ID) throws SQLException { 
-        
         dao.modifyPosition(pos,ID);
     }
     

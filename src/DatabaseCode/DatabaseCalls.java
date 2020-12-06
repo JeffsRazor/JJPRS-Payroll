@@ -8,7 +8,7 @@ public class DatabaseCalls {
 
         //Create the database connection 
             Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts",
-            "root", "");
+            "root", "MySQLpassword");
            
             //call method
             //allEmployees(conn);

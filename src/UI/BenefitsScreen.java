@@ -26,7 +26,6 @@ public class BenefitsScreen implements ActionListener {
 	private static ImageIcon icon;
 
 	private static  EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-	
 	private static HRDashboard hrDashboard = new HRDashboard();
 
 	public static void createDashboard(Connection db, int id, Employee emp) {
@@ -65,7 +64,6 @@ public class BenefitsScreen implements ActionListener {
 					frame.dispose();
 				}
 			}
-
 
 		});
 		panel1.add(goBack);

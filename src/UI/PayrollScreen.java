@@ -35,8 +35,8 @@ public class PayrollScreen implements ActionListener {
 	private static Payroll payroll;
 
 	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-	
 	private static HRDashboard hrDashboard = new HRDashboard();
+
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		payroll = new Payroll(db, id);
@@ -55,7 +55,7 @@ public class PayrollScreen implements ActionListener {
 			salary.setFont(salary.getFont().deriveFont(20f));
 			netpay.setFont(netpay.getFont().deriveFont(20f)); 
 			panel1.add(salary);
-			panel1.add(netpay); 
+			panel1.add(netpay);
 		} else if (emp.getPosition().equals("Full-Time")) {
 			salary = new JLabel("Your Salary: $" + Integer.toString(emp.getSalary()) + " Per Year");
 			netpay = new JLabel("Your Net Pay: " + payroll.getNetPay() + " After Taxes");
@@ -84,7 +84,6 @@ public class PayrollScreen implements ActionListener {
 					frame.dispose();
 				}
 			}
-
 
 		});
 

@@ -23,7 +23,9 @@ public class HRDashboard extends Dashboard implements ActionListener {
     private static JPanel panel1;
     private static JLabel title, image;
     private static ImageIcon icon;
-    private static JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton, modifyButton;  
+
+    private static JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton, modifyButton, printCheckButton;  
+
     private static LoginScreen loginScreen = new LoginScreen();
     @Override
 	public void createDashboard(Connection db, int id) {
@@ -101,16 +103,26 @@ public class HRDashboard extends Dashboard implements ActionListener {
            frame.dispose();
           }
         });  
-       /* modifyButton = new JButton("Modify Employees");//Employee modifications
-       // modifyButton.addActionListener(new ActionListener()
-     //   {
-         // public void actionPerformed(ActionEvent evt)
-       //   {
 
-           //ModifyScreen.startModifyScreen(db, id);
-      //     frame.dispose();
-      //    }
-       /  });  */
+        printCheckButton = new JButton("Print Check");//Employee Search 
+        printCheckButton.addActionListener(new ActionListener()
+      {
+        public void actionPerformed(ActionEvent evt)
+        {
+  
+          PrintCheck.createPaycheck(db, id, hr);
+        }
+      });  
+        modifyButton = new JButton("Modify Employees");//Employee modifications
+        modifyButton.addActionListener(new ActionListener()
+        {
+          public void actionPerformed(ActionEvent evt)
+         {
+           ModifyScreen.chooseEmployeetoModify(db, id);
+           frame.dispose();
+          }
+         });  
+
 
     panel1.setLayout(new FlowLayout());
     panel1.add(title);
@@ -119,7 +131,9 @@ public class HRDashboard extends Dashboard implements ActionListener {
     panel1.add(timeManagementButton);
     panel1.add(benefitsButton);
     panel1.add(searchButton);
-    //panel1.add(modifyButton); Add this back when modify screen is ready with above modify button code
+    panel1.add(printCheckButton);
+    panel1.add(modifyButton);
+
     panel1.add(logoutButton);
    
     panel1.setBackground(Color.white);

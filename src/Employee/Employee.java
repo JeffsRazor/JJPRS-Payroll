@@ -22,7 +22,7 @@ public class Employee {
     private Boolean maritalStatus;
     private String employmentStatus;
 
-    private UserAccountDAO dao;
+    protected UserAccountDAO dao;
     
     public Employee(Connection db, int id) {
         this.dao = new UserAccountDAO(db);
