@@ -37,7 +37,7 @@ public class ProfileScreen implements ActionListener {
     private static Connection db;
     private static JButton goBack;
     private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-    
+    private static HRDashboard hrDashboard = new HRDashboard();
     public static void createProfile(Connection db, Employee emp, int id) {
     	frame = new JFrame();
         frame.setSize(270, 700);
@@ -171,12 +171,16 @@ public class ProfileScreen implements ActionListener {
 
         goBack = new JButton("Return to employee dashboard");
         goBack.setBounds(50, 50, 75, 25);
-        goBack.addActionListener(new ActionListener()
-        {
-          public void actionPerformed(ActionEvent evt)
-          {
-           employeeDashboard.createDashboard(db,id);
-           frame.dispose();
+        goBack.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            if(!emp.isAdmin()){
+            employeeDashboard.createDashboard(db, id);
+            frame.dispose();
+            }
+            else {
+              hrDashboard.createDashboard(db, id);
+              frame.dispose();
+            }
           }
         });
 

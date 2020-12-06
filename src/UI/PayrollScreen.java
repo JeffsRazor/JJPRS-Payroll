@@ -35,6 +35,7 @@ public class PayrollScreen implements ActionListener {
 	private static Payroll payroll;
 
 	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+	private static HRDashboard hrDashboard = new HRDashboard();
 
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
@@ -71,8 +72,14 @@ public class PayrollScreen implements ActionListener {
 		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				if(!emp.isAdmin()){
 				employeeDashboard.createDashboard(db, id);
 				frame.dispose();
+				}
+				else {
+					hrDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
 			}
 		});
 

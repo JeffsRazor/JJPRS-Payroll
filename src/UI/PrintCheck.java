@@ -10,8 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import DatabaseCode.DatabaseConnection;
-
 import java.sql.Connection;
 import java.util.Date;
 import java.text.DateFormat;
@@ -187,12 +185,4 @@ public class PrintCheck {
         
     }
 
-
-    //simply used for testing. DELETE WHEN THIS CLASS WORKS
-    public static void main(String[] args) throws Exception {
-        PrintCheck pc = new PrintCheck();
-        Connection db = DatabaseConnection.getDatabase();
-        Employee emp = new Employee(db, 54321);
-        pc.createPaycheck(db, 54321, emp);
-    }
 }

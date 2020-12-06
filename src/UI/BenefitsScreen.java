@@ -26,7 +26,7 @@ public class BenefitsScreen implements ActionListener {
 	private static ImageIcon icon;
 
 	private static  EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-
+	private static HRDashboard hrDashboard = new HRDashboard();
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		panel1 = new JPanel();
@@ -53,8 +53,14 @@ public class BenefitsScreen implements ActionListener {
 		goBack.setSize(400, 180);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				if(!emp.isAdmin()){
 				employeeDashboard.createDashboard(db, id);
 				frame.dispose();
+				}
+				else {
+					hrDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
 			}
 		});
 		panel1.add(goBack);
