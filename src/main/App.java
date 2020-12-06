@@ -1,3 +1,11 @@
+/*
+    This application simulates a company's employee payroll system. It uses various swing screens
+    to display a GUI. By connecting to a sql database using JDBC, it is able to pull employee 
+    records from a table and display that data, It also stores that data in a local variable in 
+    order to pass to other functions within the program.
+
+*/
+
 package main;
 
 import java.sql.Connection;

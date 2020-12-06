@@ -24,15 +24,17 @@ public class BenefitsScreen implements ActionListener {
 	private static JButton goBack;
 
 	private static ImageIcon icon;
-
+	
+	//creating static objects of the dashboards for ease 
 	private static  EmployeeDashboard employeeDashboard = new EmployeeDashboard();
 	private static HRDashboard hrDashboard = new HRDashboard();
 
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		panel1 = new JPanel();
-		panel1.setLayout(new FlowLayout());
+		panel1.setLayout(new FlowLayout()); //flowlayout might change to grid layout
 
+		//checks if an emplpoyee is enrolled in a 401k retirement plan
 		if (emp.isRetirement()) {
 			benefits = new JLabel("Retirement Plan On");
 			benefits.setBounds(150, 75, 100, 100);
@@ -72,7 +74,7 @@ public class BenefitsScreen implements ActionListener {
        image.setBounds(10, 180, 300, 300);
        panel1.add(image);
 		frame = new JFrame();
-
+		//Creating the frame, adding panel to it, and setting it to visable
 		frame.setSize(400, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());

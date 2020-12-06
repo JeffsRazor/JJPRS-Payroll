@@ -1,3 +1,12 @@
+/*
+  Dashboard that displays buttons for a user to push in order to get a desired function. Currently supports:
+  Displaying profile and payroll information 
+  Displaying benefit/health plans
+  Search option to find other employees
+  Input of hours worked
+  Printing a check (Prints the info found on a paystub)
+*/
+
 package UI;
 
 import java.awt.BorderLayout;
