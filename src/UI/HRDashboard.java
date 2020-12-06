@@ -118,7 +118,7 @@ public class HRDashboard extends Dashboard implements ActionListener {
         {
           public void actionPerformed(ActionEvent evt)
          {
-           ModifyScreen.chooseEmployeetoModify(db, id);
+           ModifyScreen.createDashboard(db, id, hr);
            frame.dispose();
           }
          });  

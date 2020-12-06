@@ -38,8 +38,8 @@ public class ModifyScreen {
     private static ImageIcon icon;
     private static LoginScreen loginScreen = new LoginScreen();
 
-    public static void createDashboard(Connection db, int id) {
-        emp = new HR(db, id);
+    public static void createDashboard(Connection db, int id, HR emp) {
+        
         frame = new JFrame();
         frame.setSize(300, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
