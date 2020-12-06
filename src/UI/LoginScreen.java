@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
-
 import DatabaseCode.UserAccountDAO;
 
 import javax.swing.Icon;
@@ -17,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.mindrot.jbcrypt.*;
+
 
 public class LoginScreen implements ActionListener {
     private static JLabel idLabel;
@@ -92,7 +92,9 @@ public class LoginScreen implements ActionListener {
            String dbPassword = dao.getPassword(id);
            
            System.out.println(dbPassword);
+
            if(BCrypt.checkpw(password, dbPassword)) {
+
             loginSucess.setText("Login Successful!");
             if(dao.getAdmin(id)){
                 hrDashboard.createDashboard(logindb, id);

@@ -27,6 +27,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
     
     private JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton, printCheckButton;
 
+
     private Employee emp;
 
     private ImageIcon icon;
@@ -115,6 +116,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
            SearchScreen.createDashboard(db, id, emp);
            frame.dispose();
           }
+
         });
 
     printCheckButton = new JButton("Print Check");//Employee Search 
@@ -127,6 +129,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
       }
     });  
 
+
     panel1.setLayout(new FlowLayout());
     panel1.add(title);
     panel1.add(payrollButton);
@@ -135,6 +138,7 @@ public class EmployeeDashboard extends Dashboard implements ActionListener{
     panel1.add(benefitsButton);
     panel1.add(searchButton);
     panel1.add(printCheckButton);
+    panel1.add(modifyButton); 
     panel1.add(logoutButton);
    
     panel1.setBackground(Color.white);

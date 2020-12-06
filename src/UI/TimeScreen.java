@@ -6,7 +6,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import DatabaseCode.UserAccountDAO;
 import Employee.Employee;
 
 import javax.swing.ImageIcon;
@@ -20,15 +19,10 @@ import javax.swing.JTextField;
 public class TimeScreen implements ActionListener {
 	private static JLabel hours, ask;
 	private static JTextField idText;
-	private static JLabel passwordLabel, image;
-	private static JPasswordField passwordField;
+	private static JLabel image;
 	private static JButton button, goBack;
-	private static JLabel loginSucess;
-	private static JLabel title;
 	private static JFrame frame;
 	private static JPanel panel1;
-	private UserAccountDAO dao;
-	private static Connection logindb;
 	private static ImageIcon icon;
 
 	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
@@ -51,9 +45,6 @@ public class TimeScreen implements ActionListener {
 		idText.setBounds(100, 50, 165, 25);
 		panel1.add(idText);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(100, 70, 165, 25);
-		
 		button = new JButton("Submit");
 		button.setSize(400, 180);
 		button.addActionListener(new ActionListener() {
@@ -75,25 +66,30 @@ public class TimeScreen implements ActionListener {
 		});
 		panel1.add(button);
 		
-		goBack = new JButton("Return to employee dashboard");
-		goBack.setSize(400, 180);
+
+		goBack = new JButton("Return to dashboard");
+		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if(!emp.isAdmin()){
-				employeeDashboard.createDashboard(db, id);
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
 				frame.dispose();
+			
 				}
-				else {
-					hrDashboard.createDashboard(db, id);
+				else{
+					employeeDashboard.createDashboard(db, id);
 					frame.dispose();
 				}
 			}
+
+
 		});
 		panel1.add(goBack);
 		icon = new ImageIcon("src/JJRPSLOGO.png");
-       image = new JLabel(icon);
-       image.setBounds(10, 180, 300, 300);
-       panel1.add(image);
+        image = new JLabel(icon);
+        image.setBounds(10, 180, 300, 300);
+        panel1.add(image);
+
 		frame = new JFrame();
 		frame.setSize(300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

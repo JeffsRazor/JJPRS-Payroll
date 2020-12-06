@@ -51,8 +51,11 @@ public class PayrollScreen implements ActionListener {
 		position.setFont(position.getFont().deriveFont(20f));
 		if (emp.getPosition().equals("Part-Time")) {
 			salary = new JLabel("Your Salary: $" + Integer.toString(emp.getSalary()) + " Per Hour");
+			netpay = new JLabel("Your Net Pay: " + payroll.getNetPay() + " After Taxes"); 
 			salary.setFont(salary.getFont().deriveFont(20f));
+			netpay.setFont(netpay.getFont().deriveFont(20f)); 
 			panel1.add(salary);
+			panel1.add(netpay);
 		} else if (emp.getPosition().equals("Full-Time")) {
 			salary = new JLabel("Your Salary: $" + Integer.toString(emp.getSalary()) + " Per Year");
 			netpay = new JLabel("Your Net Pay: " + payroll.getNetPay() + " After Taxes");
@@ -67,20 +70,21 @@ public class PayrollScreen implements ActionListener {
 
 		panel1.add(position);
 
-		System.out.println("yeet");
-		goBack = new JButton("Return to employee dashboard");
+		goBack = new JButton("Return to dashboard");
 		goBack.setBounds(50, 50, 75, 25);
 		goBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if(!emp.isAdmin()){
-				employeeDashboard.createDashboard(db, id);
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
 				frame.dispose();
+			
 				}
-				else {
-					hrDashboard.createDashboard(db, id);
+				else{
+					employeeDashboard.createDashboard(db, id);
 					frame.dispose();
 				}
 			}
+
 		});
 
         panel1.add(goBack);

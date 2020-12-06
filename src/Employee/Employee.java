@@ -123,5 +123,4 @@ public class Employee {
     public void updatePassword(String pw, int ID) throws SQLException { // Updates employees hours
         dao.modifyPassword(pw,ID);
     }
-
 }

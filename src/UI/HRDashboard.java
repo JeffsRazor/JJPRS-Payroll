@@ -23,7 +23,9 @@ public class HRDashboard extends Dashboard implements ActionListener {
     private static JPanel panel1;
     private static JLabel title, image;
     private static ImageIcon icon;
+
     private static JButton logoutButton, payrollButton, profileButton, timeManagementButton, benefitsButton, searchButton, modifyButton, printCheckButton;  
+
     private static LoginScreen loginScreen = new LoginScreen();
     @Override
 	public void createDashboard(Connection db, int id) {
@@ -121,6 +123,7 @@ public class HRDashboard extends Dashboard implements ActionListener {
           }
          });  
 
+
     panel1.setLayout(new FlowLayout());
     panel1.add(title);
     panel1.add(payrollButton);
@@ -130,6 +133,7 @@ public class HRDashboard extends Dashboard implements ActionListener {
     panel1.add(searchButton);
     panel1.add(printCheckButton);
     panel1.add(modifyButton);
+
     panel1.add(logoutButton);
    
     panel1.setBackground(Color.white);

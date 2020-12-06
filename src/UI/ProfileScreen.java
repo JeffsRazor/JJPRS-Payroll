@@ -30,7 +30,10 @@ public class ProfileScreen implements ActionListener {
 
     private static JLabel title, name,dob, hours,employeeId, 
     						position, phoneNum, email, retirementLabel, 
+
     						healthInsurance, salary, admin, location, maritalStatus, employmentStatus, image;
+
+
     private static JPanel panel1;
     private static Employee emp;
     private static ImageIcon icon;
@@ -38,6 +41,7 @@ public class ProfileScreen implements ActionListener {
     private static JButton goBack;
     private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
     private static HRDashboard hrDashboard = new HRDashboard();
+
     public static void createProfile(Connection db, Employee emp, int id) {
     	frame = new JFrame();
         frame.setSize(270, 700);
@@ -131,13 +135,15 @@ public class ProfileScreen implements ActionListener {
         String isAdmin=" ";
         
         if (emp.isAdmin()==true) {
-        	isAdmin = "Admin";
+
+        	isAdmin = "Privledge Level: Admin";
         }
         else {
-        	isAdmin = "Employee";
+        	isAdmin = "Privledge Level: Employee";
         }
         
-        admin = new JLabel("Admin Privleges: " + isAdmin);
+        admin = new JLabel(isAdmin);
+
         admin.setFont(new Font("Serif", Font.BOLD, 20));
         admin.setBounds(300, 0, 300, 25);
         panel1.add(admin);
@@ -159,6 +165,7 @@ public class ProfileScreen implements ActionListener {
         	currentStatus="Single";
         }
         
+
         maritalStatus = new JLabel("Marital Status: " + currentStatus);
         maritalStatus.setFont(new Font("Serif", Font.BOLD, 20));
         maritalStatus.setBounds(300, 0, 300, 25);
@@ -169,20 +176,23 @@ public class ProfileScreen implements ActionListener {
         employmentStatus.setBounds(300, 0, 300, 25);
         panel1.add(employmentStatus);
 
-        goBack = new JButton("Return to employee dashboard");
-        goBack.setBounds(50, 50, 75, 25);
-        goBack.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            if(!emp.isAdmin()){
-            employeeDashboard.createDashboard(db, id);
-            frame.dispose();
-            }
-            else {
-              hrDashboard.createDashboard(db, id);
-              frame.dispose();
-            }
-          }
-        });
+        
+
+    goBack = new JButton("Return to dashboard");
+		goBack.setBounds(50, 50, 75, 25);
+		goBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(emp.isAdmin()){
+				hrDashboard.createDashboard(db, id);
+				frame.dispose();
+			
+				}
+				else{
+					employeeDashboard.createDashboard(db, id);
+					frame.dispose();
+				}
+			}
+		});
 
         panel1.add(goBack);
         icon = new ImageIcon("src/JJRPSLOGO.png");

@@ -25,4 +25,3 @@ values ('Jason', '1950-10-15', '16', 54321, 'Part-Time', '$2a$16$UKUorrnyGagHDmR
 INSERT INTO employee (Name,Dob,Hours,EmployeeID,Position,Password,PhoneNum,Email,Retirement,HealthInsurance,Salary,Admin, Location, MaritalStatus, EmploymentStatus) 
 values ('Jarrett', '1900-10-25', '5', 09876, 'Part-Time', '$2a$16$49zh6HnWhgXEU9d6KurBU.NC31Tlgk91IqSxHQx2FJapY6YMC.b.O', '9175603999', 'jarrettemail@gmail.com',false,'Bronze', 15,false, 'New York',false, 'Active'); 
 Select * from employee;
-
