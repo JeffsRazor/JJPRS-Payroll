@@ -1,66 +1,63 @@
 package Employee;
-import java.sql.Connection;
 
-import DatabaseCode.UserAccountDAO;
 public class EmployeePlan {
 	
 	private int premium, deductible,outOfPocket,retirementDeduction;
 	private String planType,healthInsurance;
 	private Boolean hasSickLeave, hasDentalInsurance, hasLifeInsurance, hasChildCare, hasPaidVacation, hasPersonalLeave,isRetired;
 	
-	private UserAccountDAO dao;
 	
-	public EmployeePlan(Connection db,int id) {
-		this.dao = new UserAccountDAO(db);
-		this.setHealthInsurance(dao.getHealthInsurance(id));
-		this.setPlanType(dao.getPosition(id));
-		this.setIsRetired(dao.getRetirement(id));
+	
+	public EmployeePlan(Employee emp) {
+		setBenefits(emp);
+		setHealthPlan(emp);
+		setRetirementPayment(emp);
 	}
 	
-	public void setBenefits(EmployeePlan emp) {
-		if (emp.getPlanType().contentEquals("Part-Time")) {
-			emp.setHasSickLeave(true);
-			emp.setHasDentalInsurance(true);
-			emp.setHasLifeInsurance(true);
-			emp.setHasChildCare(false);
-			emp.setHasPaidVacation(false);
-			emp.setHasPersonalLeave(false);
+	public void setBenefits(Employee emp) {
+		if (emp.getPosition().equals("Part-Time")) {
+			hasSickLeave = true;
+			hasDentalInsurance = true;
+			hasLifeInsurance = true;
+			hasChildCare = false;
+			hasPaidVacation = false;
+			hasPersonalLeave = false;
 		}
-		else if(emp.getPlanType().contentEquals("Full-Time")) {
-			emp.setHasSickLeave(true);
-			emp.setHasDentalInsurance(true);
-			emp.setHasLifeInsurance(true);
-			emp.setHasChildCare(true);
-			emp.setHasPaidVacation(true);
-			emp.setHasPersonalLeave(true);
+		else if(emp.getPosition().equals("Full-Time")) {
+			hasSickLeave = true;
+			hasDentalInsurance = true;
+			hasLifeInsurance = true;
+			hasChildCare = true;
+			hasPaidVacation = true;
+			hasPersonalLeave = true;
 		}
 	}
 	
-	public void setHealthPlan(EmployeePlan emp) {
-		if (emp.getHealthInsurance().contentEquals("Gold")) {
-			emp.setPremium(400);
-			emp.setDeductible(1000);
-			emp.setOutOfPocket(6000);			
+	public void setHealthPlan(Employee emp) {
+		if (emp.getHealthInsurance().equals("Gold")) {
+			this.premium = 400;
+			this.deductible = 1000;
+			this.outOfPocket = 6000;			
 		}
-		else if (emp.getHealthInsurance().contentEquals("Silver")) {
-			emp.setPremium(250);
-			emp.setDeductible(3500);
-			emp.setOutOfPocket(6500);		
+		else if (emp.getHealthInsurance().equals("Silver")) {
+			this.premium = 250;
+			this.deductible = 3500;
+			this.outOfPocket = 6500;		
 		}
-		else if(emp.getHealthInsurance().contentEquals("Bronze")) {
-			emp.setPremium(100);
-			emp.setDeductible(5500);
-			emp.setOutOfPocket(7500);
+		else if(emp.getHealthInsurance().equals("Bronze")) {
+			this.premium = 100;
+			this.deductible = 5500;
+			this.outOfPocket = 7500;
 						
 		}
 	}
 	
-	public void setRetirementPayment(EmployeePlan emp) {
-		if (emp.getIsRetired()==true) {
-			emp.setRetirementDeduction(200);
+	public void setRetirementPayment(Employee emp) {
+		if (emp.isRetirement()) {
+			this.retirementDeduction = 200;
 		}
 		else{
-			emp.setRetirementDeduction(0);
+			this.retirementDeduction = 0;
 		}
 	}
 
@@ -68,33 +65,19 @@ public class EmployeePlan {
 		return premium;
 	}
 
-	public void setPremium(int premium) {
-		this.premium = premium;
-	}
-
 	public int getDeductible() {
 		return deductible;
-	}
-
-	public void setDeductible(int deductible) {
-		this.deductible = deductible;
 	}
 
 	public int getOutOfPocket() {
 		return outOfPocket;
 	}
 
-	public void setOutOfPocket(int outOfPocket) {
-		this.outOfPocket = outOfPocket;
-	}
 
 	public String getPlanType() {
 		return planType;
 	}
 
-	public void setPlanType(String planType) {
-		this.planType = planType;
-	}
 
 	public Boolean getHasSickLeave() {
 		return hasSickLeave;
