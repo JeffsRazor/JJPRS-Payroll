@@ -22,6 +22,8 @@ public class PrintCheck {
     private static double netpay;
     private static double federalTaxes;
     private static double stateTaxes;
+    private static double premiumDeduction;
+    private static double retirementDeduction;
     private static String name;
     private static String employeeID;
     private static Date date;
@@ -33,9 +35,7 @@ public class PrintCheck {
     private static JFrame frame;
     private static JPanel panel1;
     private static JLabel totalEarningLabel, federalTaxesLabel, stateTaxesLabel, totalTaxLabel, totalDeductionLabel, netpayLabel, nameLabel,
-     employeeIDLabel, dateLabel, maritalStatusLabel, payDate, employer,image;
-    //Place holders for the deductions
-    private static JLabel  placeHolder1, placeHolder2;
+     employeeIDLabel, dateLabel, maritalStatusLabel, payDate, employer, premiumDeductionLabel, retirementDeductionLabel, image;
     private static JLabel taxesTitle, payPeriodTitle, employerTitle, employeeTitle,deductionTitle, summaryTitle;
 
     public static void createPaycheck(Connection db,int id, Employee emp)
@@ -46,7 +46,9 @@ public class PrintCheck {
         federalTaxes = payroll.getFederalIncomeTax();
         stateTaxes = payroll.getLocalIncomeTax();
         totalTax = payroll.getTotalTax();
-        //Place holder for Jarrett and Patrick totalDeductions = 
+        premiumDeduction = payroll.getPremium();
+        retirementDeduction = payroll.getRetirementDeduction();
+        totalDeduction = totalTax + premiumDeduction + retirementDeduction;
         netpay = payroll.getNetPay();
         name = emp.getName();
         employeeID = emp.getEmployeeID();
@@ -131,8 +133,12 @@ public class PrintCheck {
         totalEarningLabel.setFont(totalEarningLabel.getFont().deriveFont(Font.BOLD, 15f));
 
         totalTaxLabel = new JLabel("Total Taxes............................................. $" + totalTax);
-        totalTaxLabel.setBounds(400, 340, 350 , 25);
+        totalTaxLabel.setBounds(400, 330, 350 , 25);
         totalTaxLabel.setFont(totalTaxLabel.getFont().deriveFont(Font.BOLD, 15f));
+
+        totalDeductionLabel = new JLabel("Total Deductions....................................$" + totalDeduction);
+        totalDeductionLabel.setBounds(400, 350, 350 , 25);
+        totalDeductionLabel.setFont(totalDeductionLabel.getFont().deriveFont(Font.BOLD, 15f));
 
         netpayLabel = new JLabel("Net Pay.................................................... $" + netpay);
         netpayLabel.setBounds(400, 370, 350 , 25);
@@ -142,17 +148,15 @@ public class PrintCheck {
         deductionTitle.setBounds(400, 140, 350 , 25);
         deductionTitle.setFont(deductionTitle.getFont().deriveFont(Font.BOLD, 20f));
 
-        //Deduction place holders. Replace with deduction values
-        placeHolder1 = new JLabel("Deduction Place Holder................................$blah");
-        placeHolder1.setBounds(400, 160, 350 , 25);
-        placeHolder1.setFont(placeHolder1.getFont().deriveFont(Font.ITALIC, 15f));
+        premiumDeductionLabel = new JLabel("Premium.....................................................$" + premiumDeduction);
+        premiumDeductionLabel.setBounds(400, 160, 350 , 25);
+        premiumDeductionLabel.setFont(premiumDeductionLabel.getFont().deriveFont(Font.ITALIC, 15f));
 
-        placeHolder2 = new JLabel("Deduction Place Holder................................$blah" );
-        placeHolder2.setBounds(400, 180, 350 , 25);
-        placeHolder2.setFont(placeHolder2.getFont().deriveFont(Font.ITALIC, 15f));
+        retirementDeductionLabel = new JLabel("Retirement Deduction................................$" + retirementDeduction);
+        retirementDeductionLabel.setBounds(400, 180, 350 , 25);
+        retirementDeductionLabel.setFont(retirementDeductionLabel.getFont().deriveFont(Font.ITALIC, 15f));
 
-    
-
+        //Add panels
         panel1.add(taxesTitle);
         panel1.add(employerTitle);
         panel1.add(employer);
@@ -170,10 +174,11 @@ public class PrintCheck {
         panel1.add(summaryTitle);
         panel1.add(netpayLabel);
         panel1.add(deductionTitle);
+        panel1.add(totalDeductionLabel);
 
         //deduction place holders
-        panel1.add(placeHolder1);
-        panel1.add(placeHolder2);
+        panel1.add(premiumDeductionLabel);
+        panel1.add(retirementDeductionLabel);
        
         //display logo
         icon = new ImageIcon("src/JJRPSLOGO.png");
