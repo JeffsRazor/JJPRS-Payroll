@@ -3,13 +3,16 @@ package Payroll;
 import java.sql.Connection;
 
 import DatabaseCode.UserAccountDAO;
+import Employee.EmployeePlan;
 
 public class Payroll {
 	private String location, insurance, pos;
 	private Boolean isMarried;
 	private double localIncomeTax, federalIncomeTax, totalTax, netPay;
 	private int salary, income, hrsWorkedPerWeek;
+	private int premium, retirementDeduction;
 	private UserAccountDAO dao;
+	private EmployeePlan empPlan;
 
 	public Payroll(Connection db, int id) {
 		this.dao = new UserAccountDAO(db);
@@ -23,7 +26,20 @@ public class Payroll {
 		this.localIncomeTax = calculateLocalTax(location, income, isMarried, pos);
 		this.federalIncomeTax = calculateFederalTax(isMarried, income, pos);
 		this.totalTax = calculateTotalTax(localIncomeTax, federalIncomeTax);
+		this.empPlan = new EmployeePlan(db,id);
+		
 		this.netPay = calculateDeductions(totalTax, income);
+				
+	}
+	
+	public int getEmployeePlanPremium(EmployeePlan empPlan) {	
+		empPlan.setHealthPlan(empPlan);
+		return empPlan.getPremium() ;
+	}
+	
+	public int getRetirementDeduction(EmployeePlan empPlan) {
+		empPlan.setRetirementPayment(empPlan);
+		return empPlan.getRetirementDeduction();
 	}
 
 	public String getLocation() {
@@ -79,9 +95,8 @@ public class Payroll {
 	}
 
 	public void calculateBenefits(String insurance) {
-		//take out for retirement
-		//take out for health insurance Bronze, Silver, Gold
-  }
+
+	}
 
 	
 	//Calculate Local Tax by Location, martial status, and Full/Part time
@@ -519,9 +534,10 @@ public class Payroll {
 	}
 		
 	//Calculates Net Pay which is pay after tax deductions are applied. Also used for retirement plan calculations
-	public double calculateDeductions(double totalTax, int income) {
-		
-		netPay=income-totalTax;
+	public double calculateDeductions(double totalTax, int income ) {
+		premium=getEmployeePlanPremium(empPlan);
+		retirementDeduction=getRetirementDeduction(empPlan);
+		netPay=income-totalTax-premium-retirementDeduction;
 		return netPay;
 	}
 	
