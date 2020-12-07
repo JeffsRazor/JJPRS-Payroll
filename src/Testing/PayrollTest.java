@@ -13,7 +13,7 @@ public class PayrollTest {
 	
 	@Test
 	public void test1() throws SQLException {
-		Connection db =DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts", "root", "akamegakill123");//make sure to put your password here
+		Connection db =DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts", "root", "");//make sure to put your password here
 		Payroll prtest1 = new Payroll(db, 12345);	
 		double test1 = prtest1.calculateLocalTax("test", 123123, false, "test"); //Parameters don't matter because it takes info from database
 		                    //ID 12345 = Ryan     New-York 40000  False   Full-Time
@@ -31,7 +31,7 @@ public class PayrollTest {
 	
 	@Test
 	public void test2() throws SQLException {
-		Connection db =DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts", "root", "akamegakill123");//make sure to put your password here	
+		Connection db =DriverManager.getConnection("jdbc:mysql://localhost:3306/useraccounts", "root", "");//make sure to put your password here	
 		Payroll prtest2 = new Payroll(db, 54321);
 		double test1 = prtest2.calculateLocalTax("New-York", 40000, false, "Full-Time"); //Parameters don't matter because it takes info from database
 							//ID 54321 = Jason    New-York   20000  False   Part-Time	
