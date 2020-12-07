@@ -18,7 +18,7 @@ public class BenefitsScreen implements ActionListener {
 	private static JFrame frame;
 
 	private static JLabel benefits, sickLeave, childCare, paidVacation, dentalInsurance, lifeInsurance, personalLeave, 
-		health, insurance, image,premium,deductible,outOfPocketMaximum;
+		health, insurance, image,premium,deductible,outOfPocketMaximum,retirementDeduction,retirement;
 
 	private static JPanel panel1;
 
@@ -150,6 +150,27 @@ public class BenefitsScreen implements ActionListener {
 		panel1.add(premium);
 		panel1.add(deductible);
 		panel1.add(outOfPocketMaximum);
+		
+		retirement = new JLabel("Retirement Status");
+		retirement.setFont(retirement.getFont().deriveFont(Font.BOLD,24f));
+		retirement.setBounds(300, 400, 600, 25);
+		
+		panel1.add(retirement);
+		
+		curEmployeePlan.setRetirementPayment(curEmployeePlan);
+		
+		if (curEmployeePlan.getIsRetired()==true) {
+			retirementDeduction= new JLabel("401K Deduction: "+curEmployeePlan.getRetirementDeduction());
+			retirementDeduction.setBounds(300, 500, 300, 300);
+			retirementDeduction.setFont(retirementDeduction.getFont().deriveFont(20f));
+		}
+		else {
+			retirementDeduction= new JLabel("Not Retired");
+			retirementDeduction.setBounds(300, 500, 300, 300);
+			retirementDeduction.setFont(retirementDeduction.getFont().deriveFont(20f));
+		}
+		
+		panel1.add(retirementDeduction);
 
 		// go back to dash board
 		goBack = new JButton("Return to dashboard");
