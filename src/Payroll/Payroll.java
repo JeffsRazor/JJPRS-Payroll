@@ -3,6 +3,7 @@ package Payroll;
 import java.sql.Connection;
 
 import DatabaseCode.UserAccountDAO;
+import Employee.Employee;
 import Employee.EmployeePlan;
 
 public class Payroll {
@@ -13,9 +14,11 @@ public class Payroll {
 	private int premium, retirementDeduction;
 	private UserAccountDAO dao;
 	private EmployeePlan empPlan;
+	private Employee emp;
 
 	public Payroll(Connection db, int id) {
 		this.dao = new UserAccountDAO(db);
+		this.emp = new Employee(db, id);
 		this.salary = dao.getSalary(id);
 		this.location = dao.getLocation(id);
 		this.insurance = dao.getHealthInsurance(id);
@@ -26,20 +29,20 @@ public class Payroll {
 		this.localIncomeTax = calculateLocalTax(location, income, isMarried, pos);
 		this.federalIncomeTax = calculateFederalTax(isMarried, income, pos);
 		this.totalTax = calculateTotalTax(localIncomeTax, federalIncomeTax);
-		this.empPlan = new EmployeePlan(db,id);
+		this.empPlan = new EmployeePlan(emp);
 		
-		this.netPay = calculateDeductions(totalTax, income);
-				
+		this.netPay = calculateDeductions(totalTax, income, premium, retirementDeduction);
+		
+		this.premium = empPlan.getPremium();
+		this.retirementDeduction = empPlan.getRetirementDeduction();
 	}
 	
-	public int getEmployeePlanPremium(EmployeePlan empPlan) {	
-		empPlan.setHealthPlan(empPlan);
-		return empPlan.getPremium() ;
+	public int getPremium() {	
+		return this.premium;
 	}
 	
-	public int getRetirementDeduction(EmployeePlan empPlan) {
-		empPlan.setRetirementPayment(empPlan);
-		return empPlan.getRetirementDeduction();
+	public int getRetirementDeduction() {
+		return this.retirementDeduction;
 	}
 
 	public String getLocation() {
@@ -534,10 +537,8 @@ public class Payroll {
 	}
 		
 	//Calculates Net Pay which is pay after tax deductions are applied. Also used for retirement plan calculations
-	public double calculateDeductions(double totalTax, int income ) {
-		premium=getEmployeePlanPremium(empPlan);
-		retirementDeduction=getRetirementDeduction(empPlan);
-		netPay=income-totalTax-premium-retirementDeduction;
+	public double calculateDeductions(double totalTax, int income, int premium, int retirementDeduction ) {
+		netPay = income-totalTax-premium-retirementDeduction;
 		return netPay;
 	}
 	

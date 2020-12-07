@@ -35,9 +35,7 @@ public class ProfileScreen implements ActionListener {
 
 
     private static JPanel panel1;
-    private static Employee emp;
     private static ImageIcon icon;
-    private static Connection db;
     private static JButton goBack;
     private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
     private static HRDashboard hrDashboard = new HRDashboard();

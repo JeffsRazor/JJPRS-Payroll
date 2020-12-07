@@ -24,7 +24,7 @@ import Payroll.*;
 public class PayrollScreen implements ActionListener {
 	private static JFrame frame;
 
-	private static JLabel salary, netpay, position,image;
+	private static JLabel salary, netpay, position,image, localTax, federalTax, retirementDeduction, premium;
 
 	private static JPanel panel1;
 
@@ -36,12 +36,13 @@ public class PayrollScreen implements ActionListener {
 
 	private static EmployeeDashboard employeeDashboard = new EmployeeDashboard();
 	private static HRDashboard hrDashboard = new HRDashboard();
-
+	private static EmployeePlan empPlan;
 	public static void createDashboard(Connection db, int id, Employee emp) {
 
 		payroll = new Payroll(db, id);
+		empPlan = new EmployeePlan(emp);
 		frame = new JFrame();
-		frame.setSize(400, 500);
+		frame.setSize(600, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		panel1 = new JPanel();
@@ -65,7 +66,23 @@ public class PayrollScreen implements ActionListener {
 			panel1.add(netpay);
 
 		}
+		localTax = new JLabel("Local income tax deduction: $" + payroll.getLocalIncomeTax());
+		localTax.setFont(localTax.getFont().deriveFont(20f));
+		panel1.add(localTax);
 
+		federalTax = new JLabel("Federal income tax deduction: $" + payroll.getFederalIncomeTax());
+		federalTax.setFont(localTax.getFont().deriveFont(20f));
+		panel1.add(federalTax);
+
+		if(emp.isRetirement()){
+		retirementDeduction = new JLabel("Your deduction for your 401k plan: $" + empPlan.getRetirementDeduction());
+		retirementDeduction.setFont(retirementDeduction.getFont().deriveFont(20f));
+		panel1.add(retirementDeduction);
+		}
+
+		premium = new JLabel("Your deduction for your health plan: $" + empPlan.getPremium());
+		premium.setFont(premium.getFont().deriveFont(20f));
+		panel1.add(premium);
 		System.out.println(payroll.getTotalTax() + " " + payroll.getLocalIncomeTax() + " " + payroll.getIncome());
 
 		panel1.add(position);

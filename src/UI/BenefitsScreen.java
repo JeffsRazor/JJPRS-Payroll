@@ -35,18 +35,8 @@ public class BenefitsScreen implements ActionListener {
 
 		panel1 = new JPanel();
 		panel1.setLayout(new FlowLayout());
-
-//		if (emp.isRetirement()) {
-//			benefits = new JLabel("Retirement Plan On");
-//			benefits.setBounds(150, 0, 100, 100);
-//			benefits.setFont(benefits.getFont().deriveFont(20f));
-//		} else {
-//			benefits = new JLabel("Retirement Plan Off");
-//			benefits.setBounds(150, 0, 100, 100);
-//			benefits.setFont(benefits.getFont().deriveFont(20f));
-//		}
 		
-		EmployeePlan curEmployeePlan = new EmployeePlan(db,id);
+		EmployeePlan curEmployeePlan = new EmployeePlan(emp);
 		
 		benefits = new JLabel("List of Current Benefits");
 		benefits.setBounds(150, 600, 100, 100);
@@ -54,9 +44,7 @@ public class BenefitsScreen implements ActionListener {
 		
 		panel1.add(benefits);
 		
-		curEmployeePlan.setBenefits(curEmployeePlan);
-		
-		if (curEmployeePlan.getHasSickLeave()==true) {
+		if (curEmployeePlan.getHasSickLeave()) {
 			sickLeave= new JLabel("-Sick Leave: 5 Days");
 			sickLeave.setBounds(300, 500, 300, 300);
 			sickLeave.setFont(sickLeave.getFont().deriveFont(20f));
@@ -66,7 +54,7 @@ public class BenefitsScreen implements ActionListener {
 			sickLeave.setBounds(300, 500, 300, 300);
 			sickLeave.setFont(sickLeave.getFont().deriveFont(20f));
 		}
-		if(curEmployeePlan.getHasDentalInsurance()==true) {
+		if(curEmployeePlan.getHasDentalInsurance()) {
 			dentalInsurance = new JLabel("-Dental Insurance Provided");
 			dentalInsurance.setBounds(300, 500, 300, 300);
 			dentalInsurance.setFont(dentalInsurance.getFont().deriveFont(20f));
@@ -76,7 +64,7 @@ public class BenefitsScreen implements ActionListener {
 			dentalInsurance.setBounds(300, 500, 300, 300);
 			dentalInsurance.setFont(dentalInsurance.getFont().deriveFont(20f));
 		}
-		if (curEmployeePlan.getHasLifeInsurance()==true) {
+		if (curEmployeePlan.getHasLifeInsurance()) {
 			lifeInsurance = new JLabel("-Life Insurance Provided");
 			lifeInsurance.setBounds(300, 500, 300, 300);
 			lifeInsurance.setFont(lifeInsurance.getFont().deriveFont(20f));
@@ -87,7 +75,7 @@ public class BenefitsScreen implements ActionListener {
 			lifeInsurance.setFont(lifeInsurance.getFont().deriveFont(20f));
 		}
 		
-		if(curEmployeePlan.getHasChildCare()==true) {
+		if(curEmployeePlan.getHasChildCare()) {
 			childCare = new JLabel("-Child Care Provided");
 			childCare.setBounds(300, 500, 300, 300);
 			childCare.setFont(childCare.getFont().deriveFont(20f));
@@ -97,7 +85,7 @@ public class BenefitsScreen implements ActionListener {
 			childCare.setBounds(300, 500, 300, 300);
 			childCare.setFont(childCare.getFont().deriveFont(20f));
 		}
-		if(curEmployeePlan.getHasPaidVacation()==true) {
+		if(curEmployeePlan.getHasPaidVacation()) {
 			paidVacation = new JLabel("-Paid Vacation:7 Days");
 			paidVacation.setBounds(300, 500, 300, 300);
 			paidVacation.setFont(paidVacation.getFont().deriveFont(20f));
@@ -107,7 +95,7 @@ public class BenefitsScreen implements ActionListener {
 			paidVacation.setBounds(300, 500, 300, 300);
 			paidVacation.setFont(paidVacation.getFont().deriveFont(20f));
 		}
-		if(curEmployeePlan.getHasPersonalLeave()==true) {
+		if(curEmployeePlan.getHasPersonalLeave()) {
 			personalLeave = new JLabel("-Personal Leave:7 Days");
 			personalLeave.setBounds(300, 500, 300, 300);
 			personalLeave.setFont(personalLeave.getFont().deriveFont(20f));
@@ -124,14 +112,12 @@ public class BenefitsScreen implements ActionListener {
 		panel1.add(childCare);
 		panel1.add(paidVacation);
 		panel1.add(personalLeave);
-		
-		curEmployeePlan.setHealthPlan(curEmployeePlan);
 
 		health = new JLabel("Your Current Health Plan");
 		health.setFont(health.getFont().deriveFont(Font.BOLD,24f));
 		health.setBounds(300, 400, 300, 25);
 		
-		insurance = new JLabel("Your Health Insurance Type: " + curEmployeePlan.getPlanType());
+		insurance = new JLabel("Your Health Insurance Type: " + emp.getHealthInsurance());
 		insurance.setFont(insurance.getFont().deriveFont(20f));
 		insurance.setBounds(300, 350, 300, 25);
 		
@@ -157,10 +143,9 @@ public class BenefitsScreen implements ActionListener {
 		
 		panel1.add(retirement);
 		
-		curEmployeePlan.setRetirementPayment(curEmployeePlan);
 		
-		if (curEmployeePlan.getIsRetired()==true) {
-			retirementDeduction= new JLabel("401K Deduction: "+curEmployeePlan.getRetirementDeduction());
+		if (emp.isRetirement()) {
+			retirementDeduction = new JLabel("401K Deduction: $"+curEmployeePlan.getRetirementDeduction());
 			retirementDeduction.setBounds(300, 500, 300, 300);
 			retirementDeduction.setFont(retirementDeduction.getFont().deriveFont(20f));
 		}
