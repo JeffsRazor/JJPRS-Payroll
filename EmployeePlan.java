@@ -4,9 +4,9 @@ import java.sql.Connection;
 import DatabaseCode.UserAccountDAO;
 public class EmployeePlan {
 	
-	private int premium, deductible,outOfPocket;
+	private int premium, deductible,outOfPocket,retirementDeduction;
 	private String planType,healthInsurance;
-	private Boolean hasSickLeave, hasDentalInsurance, hasLifeInsurance, hasChildCare, hasPaidVacation, hasPersonalLeave;
+	private Boolean hasSickLeave, hasDentalInsurance, hasLifeInsurance, hasChildCare, hasPaidVacation, hasPersonalLeave,isRetired;
 	
 	private UserAccountDAO dao;
 	
@@ -14,7 +14,7 @@ public class EmployeePlan {
 		this.dao = new UserAccountDAO(db);
 		this.setHealthInsurance(dao.getHealthInsurance(id));
 		this.setPlanType(dao.getPosition(id));
-
+		this.setIsRetired(dao.getRetirement(id));
 	}
 	
 	public void setBenefits(EmployeePlan emp) {
@@ -52,6 +52,15 @@ public class EmployeePlan {
 			emp.setDeductible(5500);
 			emp.setOutOfPocket(7500);
 						
+		}
+	}
+	
+	public void setRetirementPayment(EmployeePlan emp) {
+		if (emp.getIsRetired()==true) {
+			emp.setRetirementDeduction(200);
+		}
+		else{
+			emp.setRetirementDeduction(0);
 		}
 	}
 
@@ -142,6 +151,22 @@ public class EmployeePlan {
 
 	public void setHealthInsurance(String healthInsurance) {
 		this.healthInsurance = healthInsurance;
+	}
+
+	public int getRetirementDeduction() {
+		return retirementDeduction;
+	}
+
+	public void setRetirementDeduction(int retirementDeduction) {
+		this.retirementDeduction = retirementDeduction;
+	}
+
+	public Boolean getIsRetired() {
+		return isRetired;
+	}
+
+	public void setIsRetired(Boolean isRetired) {
+		this.isRetired = isRetired;
 	}
 
 	
