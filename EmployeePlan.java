@@ -1,13 +1,58 @@
 package Employee;
+import java.sql.Connection;
 
+import DatabaseCode.UserAccountDAO;
 public class EmployeePlan {
 	
 	private int premium, deductible,outOfPocket;
-	private String planType,position;
+	private String planType,healthInsurance;
 	private Boolean hasSickLeave, hasDentalInsurance, hasLifeInsurance, hasChildCare, hasPaidVacation, hasPersonalLeave;
 	
-	public EmployeePlan() {
+	private UserAccountDAO dao;
+	
+	public EmployeePlan(Connection db,int id) {
+		this.dao = new UserAccountDAO(db);
+		this.setHealthInsurance(dao.getHealthInsurance(id));
+		this.setPlanType(dao.getPosition(id));
 
+	}
+	
+	public void setBenefits(EmployeePlan emp) {
+		if (emp.getPlanType().contentEquals("Part-Time")) {
+			emp.setHasSickLeave(true);
+			emp.setHasDentalInsurance(true);
+			emp.setHasLifeInsurance(true);
+			emp.setHasChildCare(false);
+			emp.setHasPaidVacation(false);
+			emp.setHasPersonalLeave(false);
+		}
+		else if(emp.getPlanType().contentEquals("Full-Time")) {
+			emp.setHasSickLeave(true);
+			emp.setHasDentalInsurance(true);
+			emp.setHasLifeInsurance(true);
+			emp.setHasChildCare(true);
+			emp.setHasPaidVacation(true);
+			emp.setHasPersonalLeave(true);
+		}
+	}
+	
+	public void setHealthPlan(EmployeePlan emp) {
+		if (emp.getHealthInsurance().contentEquals("Gold")) {
+			emp.setPremium(400);
+			emp.setDeductible(1000);
+			emp.setOutOfPocket(6000);			
+		}
+		else if (emp.getHealthInsurance().contentEquals("Silver")) {
+			emp.setPremium(250);
+			emp.setDeductible(3500);
+			emp.setOutOfPocket(6500);		
+		}
+		else if(emp.getHealthInsurance().contentEquals("Bronze")) {
+			emp.setPremium(100);
+			emp.setDeductible(5500);
+			emp.setOutOfPocket(7500);
+						
+		}
 	}
 
 	public int getPremium() {
@@ -90,12 +135,13 @@ public class EmployeePlan {
 		this.hasPersonalLeave = hasPersonalLeave;
 	}
 
-	public String getPosition() {
-		return position;
+
+	public String getHealthInsurance() {
+		return healthInsurance;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setHealthInsurance(String healthInsurance) {
+		this.healthInsurance = healthInsurance;
 	}
 
 	

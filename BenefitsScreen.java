@@ -46,9 +46,7 @@ public class BenefitsScreen implements ActionListener {
 //			benefits.setFont(benefits.getFont().deriveFont(20f));
 //		}
 		
-		EmployeePlan curEmployeePlan = new EmployeePlan();
-		curEmployeePlan.setPlanType(emp.getHealthInsurance());
-		curEmployeePlan.setPosition(emp.getPosition());
+		EmployeePlan curEmployeePlan = new EmployeePlan(db,id);
 		
 		benefits = new JLabel("List of Current Benefits");
 		benefits.setBounds(150, 600, 100, 100);
@@ -56,22 +54,7 @@ public class BenefitsScreen implements ActionListener {
 		
 		panel1.add(benefits);
 		
-		if (curEmployeePlan.getPosition().contentEquals("Part-Time")) {
-			curEmployeePlan.setHasSickLeave(true);
-			curEmployeePlan.setHasDentalInsurance(true);
-			curEmployeePlan.setHasLifeInsurance(true);
-			curEmployeePlan.setHasChildCare(false);
-			curEmployeePlan.setHasPaidVacation(false);
-			curEmployeePlan.setHasPersonalLeave(false);
-		}
-		else if(curEmployeePlan.getPosition().contentEquals("Full-Time")) {
-			curEmployeePlan.setHasSickLeave(true);
-			curEmployeePlan.setHasDentalInsurance(true);
-			curEmployeePlan.setHasLifeInsurance(true);
-			curEmployeePlan.setHasChildCare(true);
-			curEmployeePlan.setHasPaidVacation(true);
-			curEmployeePlan.setHasPersonalLeave(true);
-		}
+		curEmployeePlan.setBenefits(curEmployeePlan);
 		
 		if (curEmployeePlan.getHasSickLeave()==true) {
 			sickLeave= new JLabel("-Sick Leave: 5 Days");
@@ -141,6 +124,8 @@ public class BenefitsScreen implements ActionListener {
 		panel1.add(childCare);
 		panel1.add(paidVacation);
 		panel1.add(personalLeave);
+		
+		curEmployeePlan.setHealthPlan(curEmployeePlan);
 
 		health = new JLabel("Your Current Health Plan");
 		health.setFont(health.getFont().deriveFont(Font.BOLD,24f));
@@ -150,51 +135,15 @@ public class BenefitsScreen implements ActionListener {
 		insurance.setFont(insurance.getFont().deriveFont(20f));
 		insurance.setBounds(300, 350, 300, 25);
 		
-		if (curEmployeePlan.getPlanType().contentEquals("Gold")) {
-			curEmployeePlan.setPremium(400);
-			curEmployeePlan.setDeductible(1000);
-			curEmployeePlan.setOutOfPocket(6000);
-			premium = new JLabel("Premium:$" + curEmployeePlan.getPremium());
-			premium.setFont(premium.getFont().deriveFont(20f));
-			premium.setBounds(300, 300, 300, 25);
-			deductible = new JLabel("Deductible:$" + curEmployeePlan.getDeductible());	
-			deductible.setFont(premium.getFont().deriveFont(20f));
-			deductible.setBounds(300, 300, 300, 25);
-			outOfPocketMaximum = new JLabel("OOP:$" + curEmployeePlan.getOutOfPocket());	
-			outOfPocketMaximum.setFont(outOfPocketMaximum.getFont().deriveFont(20f));
-			outOfPocketMaximum.setBounds(300, 300, 300, 25);
-			
-		}
-		else if (curEmployeePlan.getPlanType().contentEquals("Silver")) {
-			curEmployeePlan.setPremium(250);
-			curEmployeePlan.setDeductible(3500);
-			curEmployeePlan.setOutOfPocket(6500);
-			premium = new JLabel("Premium:$" + curEmployeePlan.getPremium());
-			premium.setFont(premium.getFont().deriveFont(20f));
-			premium.setBounds(300, 300, 300, 300);
-			deductible = new JLabel("Deductible:$" + curEmployeePlan.getDeductible());	
-			deductible.setFont(premium.getFont().deriveFont(20f));
-			deductible.setBounds(300, 300, 300, 300);
-			outOfPocketMaximum = new JLabel("OOP:$" + curEmployeePlan.getOutOfPocket());	
-			outOfPocketMaximum.setFont(outOfPocketMaximum.getFont().deriveFont(20f));
-			outOfPocketMaximum.setBounds(300, 300, 300, 300);
-		
-		}
-		else if(curEmployeePlan.getPlanType().contentEquals("Bronze")) {
-			curEmployeePlan.setPremium(100);
-			curEmployeePlan.setDeductible(5500);
-			curEmployeePlan.setOutOfPocket(7500);
-			premium = new JLabel("Premium:$" + curEmployeePlan.getPremium());
-			premium.setFont(premium.getFont().deriveFont(20f));
-			premium.setBounds(300, 300, 300, 300);
-			deductible = new JLabel("Deductible:$" + curEmployeePlan.getDeductible());	
-			deductible.setFont(premium.getFont().deriveFont(20f));
-			deductible.setBounds(300, 300, 300, 300);
-			outOfPocketMaximum = new JLabel("OOP:$" + curEmployeePlan.getOutOfPocket());	
-			outOfPocketMaximum.setFont(outOfPocketMaximum.getFont().deriveFont(20f));
-			outOfPocketMaximum.setBounds(300, 300, 300, 300);
-			
-		}
+		premium = new JLabel("Premium:$" + curEmployeePlan.getPremium());
+		premium.setFont(premium.getFont().deriveFont(20f));
+		premium.setBounds(300, 300, 300, 300);
+		deductible = new JLabel("Deductible:$" + curEmployeePlan.getDeductible());	
+		deductible.setFont(premium.getFont().deriveFont(20f));
+		deductible.setBounds(300, 300, 300, 300);
+		outOfPocketMaximum = new JLabel("OOP:$" + curEmployeePlan.getOutOfPocket());	
+		outOfPocketMaximum.setFont(outOfPocketMaximum.getFont().deriveFont(20f));
+		outOfPocketMaximum.setBounds(300, 300, 300, 300);
 			
 		panel1.add(health);
 		panel1.add(insurance);		
