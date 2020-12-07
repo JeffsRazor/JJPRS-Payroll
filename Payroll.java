@@ -9,7 +9,8 @@ public class Payroll {
 	private String location, insurance, pos;
 	private Boolean isMarried;
 	private double localIncomeTax, federalIncomeTax, totalTax, netPay;
-	private int salary, income, hrsWorkedPerWeek, premium, retirementDeduction;
+	private int salary, income, hrsWorkedPerWeek;
+	private int premium, retirementDeduction;
 	private UserAccountDAO dao;
 	private EmployeePlan empPlan;
 
@@ -25,16 +26,18 @@ public class Payroll {
 		this.localIncomeTax = calculateLocalTax(location, income, isMarried, pos);
 		this.federalIncomeTax = calculateFederalTax(isMarried, income, pos);
 		this.totalTax = calculateTotalTax(localIncomeTax, federalIncomeTax);
-		this.netPay = calculateDeductions(totalTax, income);
 		this.empPlan = new EmployeePlan(db,id);
+		
+		this.netPay = calculateDeductions(totalTax, income);
+				
 	}
 	
-	public int getEmployeePlanPremium() {
+	public int getEmployeePlanPremium(EmployeePlan empPlan) {	
 		empPlan.setHealthPlan(empPlan);
-		return empPlan.getPremium();
+		return empPlan.getPremium() ;
 	}
 	
-	public int getRetirementDeduction() {
+	public int getRetirementDeduction(EmployeePlan empPlan) {
 		empPlan.setRetirementPayment(empPlan);
 		return empPlan.getRetirementDeduction();
 	}
@@ -531,9 +534,9 @@ public class Payroll {
 	}
 		
 	//Calculates Net Pay which is pay after tax deductions are applied. Also used for retirement plan calculations
-	public double calculateDeductions(double totalTax, int income) {
-		premium=getEmployeePlanPremium();
-		retirementDeduction=getRetirementDeduction();
+	public double calculateDeductions(double totalTax, int income ) {
+		premium=getEmployeePlanPremium(empPlan);
+		retirementDeduction=getRetirementDeduction(empPlan);
 		netPay=income-totalTax-premium-retirementDeduction;
 		return netPay;
 	}
